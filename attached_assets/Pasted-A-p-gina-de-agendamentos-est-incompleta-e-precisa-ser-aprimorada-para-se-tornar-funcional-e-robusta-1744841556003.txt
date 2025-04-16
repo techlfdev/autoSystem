@@ -1,0 +1,19 @@
+A página de agendamentos está incompleta e precisa ser aprimorada para se tornar funcional e robusta. Neste momento, o botão “New Event” não executa nenhuma ação — quero que ele seja funcional e que seu texto seja alterado para “Novo Agendamento”. Quando clicado, deve abrir um modal com o formulário de criação de agendamento, contendo os campos: Nome do cliente, Telefone, Tipo de serviço, Mecânico responsável, Box, Horário inicial, Duração, e Observações. Todos os campos devem ter validação adequada.
+
+Além disso, quero que o evento de clique em qualquer dia do calendário abra automaticamente esse mesmo modal, com o campo de data já preenchido com o dia clicado. Isso acelera o fluxo e melhora a usabilidade. O modal deve ser reaproveitado tanto pelo botão quanto pelo clique no calendário.
+
+Também quero que essa página vá além de só exibir uma agenda visual. Ela deve incluir seções adicionais para:
+
+Relatórios e métricas de agendamentos: exibir estatísticas como número de agendamentos por semana, agendamentos por mecânico, taxa de comparecimento dos clientes e serviços mais realizados. Isso pode ser apresentado em cards no topo da página ou em um painel lateral.
+
+Lista cronológica do dia: exibir os agendamentos do dia atual em formato de lista abaixo ou ao lado do calendário, com informações resumidas (horário, cliente, serviço, status). A lista deve permitir clique para abrir detalhes ou editar.
+
+Ações rápidas: botões para reagendar, cancelar, marcar como concluído ou iniciar um atendimento diretamente da lista ou do modal de detalhe.
+
+Filtro inteligente: adicionar filtros para status do agendamento (Pendente, Confirmado, Em andamento, Concluído, Cancelado), mecânico, box, tipo de serviço e cliente.
+
+Implemente também um placeholder para integração futura com notificações automáticas (WhatsApp ou SMS), que será acionada no momento da criação do agendamento. Pode ser um log visual no console ou um toast simulando o envio.
+
+Organize a estrutura do projeto com componentes reutilizáveis (ModalAgendamento.tsx, AgendamentoCard.tsx, RelatorioResumo.tsx, etc.) e garanta que a navegação, layout e responsividade estejam alinhados com o restante do sistema.
+
+Por fim, garanta que o sistema esteja preparado para ser conectado a um backend real posteriormente. Os dados podem ser mockados agora, mas devem seguir a estrutura final.
