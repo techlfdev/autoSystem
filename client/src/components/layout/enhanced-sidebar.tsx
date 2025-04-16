@@ -42,7 +42,7 @@ interface MenuSection {
 interface SidebarProps {
   className?: string;
   user?: {
-    name: string;
+    name: string;Button
     email?: string;
     role?: string;
     avatar?: string;
