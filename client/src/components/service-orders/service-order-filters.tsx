@@ -2,7 +2,7 @@
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
-import { DatePicker } from '@/components/ui/date-picker';
+import { DatePicker } from "@/components/ui/date-picker";
 import { Plus, Search, Filter } from 'lucide-react';
 
 export function ServiceOrderFilters() {
