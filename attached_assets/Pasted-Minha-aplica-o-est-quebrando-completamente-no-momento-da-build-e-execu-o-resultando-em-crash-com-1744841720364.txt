@@ -1,0 +1,29 @@
+Minha aplicação está quebrando completamente no momento da build e execução, resultando em crash com tela de “Your App Crashed” e logs que indicam falhas de importação. Um dos erros principais no momento é:
+Internal server error: Failed to resolve import "@/components/ui/use-toast" from appointments.tsx.
+Isso indica que o projeto está tentando importar um módulo que não existe ou não está no local correto. O caminho informado parece ser inválido ou não foi criado. Isso está impedindo a aplicação de iniciar corretamente.
+
+Quero que você faça agora uma análise completa do projeto, identifique todos os erros que estão causando falha crítica de build ou de execução, incluindo:
+
+Imports inexistentes ou com caminho incorreto (ex: @/components/ui/use-toast)
+
+Módulos ou componentes referenciados que não foram criados
+
+Problemas com paths relativos ou aliases configurados de forma incorreta no tsconfig.json ou vite.config.js
+
+Referências a funções ou hooks inexistentes
+
+Qualquer outro erro que esteja impedindo a renderização da aplicação
+
+Para cada erro identificado, resolva de forma segura e funcional:
+
+Se um módulo estiver faltando, crie um placeholder funcional com estrutura mínima (ex: use-toast.ts com uma função de console.log simulando o toast).
+
+Se um caminho estiver incorreto, corrija o import com o caminho relativo correto, baseado na estrutura atual de pastas.
+
+Se houver dependências não instaladas, instale com npm install.
+
+Se for erro de configuração de aliases, ajuste os paths no tsconfig.json e vite.config.js para refletir corretamente a estrutura real do projeto.
+
+Após corrigir todos os erros, reinicie o projeto e valide se a aplicação está funcionando corretamente no navegador. Certifique-se de que a rota /agendamentos está funcionando, que o calendário é exibido corretamente, e que a aplicação não está mais quebrando.
+
+Registre as alterações feitas nos arquivos correspondentes e, se possível, comente brevemente as correções diretamente no código. A prioridade agora é restaurar a aplicação para um estado funcional, sem erros fatais.
