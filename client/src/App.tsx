@@ -1,5 +1,6 @@
 
 import { lazy, Suspense } from "react";
+import { ErrorBoundary } from "@/components/ui/error-boundary";
 import { Switch, Route } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -16,13 +17,15 @@ const NotFound = lazy(() => import("@/pages/not-found"));
 function Router() {
   return (
     <Suspense fallback={<PageLoader />}>
-      <Switch>
+      <ErrorBoundary>
+        <Switch>
         <Route path="/" component={Dashboard} />
         <Route path="/clientes" component={Clients} />
         <Route path="/agendamentos" component={Appointments} />
         <Route path="/ordens" component={ServiceOrders} />
         <Route component={NotFound} />
       </Switch>
+      </ErrorBoundary>
     </Suspense>
   );
 }

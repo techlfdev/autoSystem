@@ -1,7 +1,7 @@
 
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import { Check, Clock, Tool, Package, AlertCircle } from 'lucide-react';
+import { Check, Clock, Wrench, Package, AlertCircle } from 'lucide-react';
 
 interface TimelineEvent {
   id: number;
@@ -25,7 +25,7 @@ export function Timeline({ events }: TimelineProps) {
       case 'PART_ADDED':
         return <Package className="h-4 w-4" />;
       case 'MECHANIC_ASSIGNED':
-        return <Tool className="h-4 w-4" />;
+        return <Wrench className="h-4 w-4" />;
       case 'COMPLETED':
         return <Check className="h-4 w-4" />;
       default:
