@@ -1,0 +1,29 @@
+Crie imediatamente a página de Ordens de Serviço (OS) da aplicação, com estrutura completa, responsiva e modular, preparada para produção e integração com backend. Essa página deve ser o centro operacional da gestão de serviços da oficina e precisa oferecer não apenas o registro das ordens, mas também o acompanhamento técnico, comunicação com o cliente e histórico detalhado. A visualização principal deve conter uma lista de todas as OS registradas, com campos visíveis como cliente, veículo, status atual, data de criação, responsável e ações rápidas (visualizar, editar, excluir). Ao clicar em qualquer OS, deve abrir uma visualização detalhada com todas as informações organizadas em seções.
+
+Implemente o painel de detalhes da OS com as seguintes funcionalidades: emissão da OS com status dinâmico e editável, que pode ser: Recebida, Em Diagnóstico, Aguardando Peça, Em Execução, Finalizada e Entregue. O status deve ser exibido em uma barra de progresso interativa ou timeline horizontal, com data/hora e responsável por cada etapa.
+
+Inclua campos editáveis para registrar todas as peças utilizadas, quantidade, valor unitário e valor total, além da mão de obra aplicada e taxas adicionais. Deve existir um resumo financeiro com total estimado e valor final, permitindo aplicar descontos, cupons ou condições especiais. Mostre também o tempo estimado de execução e o tempo real de conclusão da OS, e calcule a eficiência do serviço com base nesses dados, exibindo em percentual.
+
+Adicione uma seção de diagnóstico técnico, onde o mecânico registra o problema relatado, descreve o que foi identificado e pode fazer upload de fotos ou vídeos como evidência. Inclua também um checklist técnico de entrada e saída, com campos como freios, elétrica, suspensão, motor, etc., com opções de marcar "ok", "com falha", ou "não verificado".
+
+Implemente um sistema de aprovação digital do orçamento, com botão para o cliente aprovar ou reprovar a proposta via link ou assinatura digital. O sistema deve registrar o IP, data e horário da resposta. Integre também uma área de comunicação interna, onde observações e mensagens trocadas entre os envolvidos na OS sejam armazenadas como histórico. As mudanças de status devem disparar notificações automáticas simuladas (ou reais, via webhook) para o cliente por WhatsApp/SMS.
+
+Adicione suporte para geração automática de documentos, como comprovante de entrada, laudo técnico, cópia da OS em PDF (com QR Code), e recibo de retirada com espaço para assinatura. A página deve estar preparada para exportar ou imprimir esses arquivos.
+
+Após a finalização de uma OS, dispare automaticamente uma solicitação de feedback do cliente, que deve ser exibida como modal ou enviada por link. O cliente poderá avaliar de 1 a 5 estrelas e deixar comentários sobre o serviço.
+
+Exiba o histórico completo de OS por cliente e veículo, permitindo visualizar todas as ordens anteriores, com opção de duplicar uma OS existente para facilitar o cadastro em casos de manutenção recorrente. Inclua também um identificador de padrões de manutenção, como troca de óleo periódica, baseada no histórico.
+
+Implemente controle de permissões por tipo de usuário: o mecânico deve poder apenas visualizar e preencher sua parte técnica; o gestor pode aprovar, reprovar, alterar status e valores; o cliente deve visualizar sua OS de forma limpa, sem acesso a dados internos. Toda alteração em qualquer OS deve gerar um registro na auditoria, com data, usuário e mudança feita.
+
+Por fim, vincule a OS ao status de pagamento: Pago, Em Aberto, Cancelado. Essa informação deve estar visível e ser gerenciada de acordo com o módulo financeiro. Estruture a página com componentes reutilizáveis, separando visual de lógica e garantindo que a aplicação funcione sem erros de renderização, build ou dependência.
+
+Esse prompt é feito pra causar impacto. Ele cobre:
+
+✅ Gestão técnica
+✅ Comunicação com cliente
+✅ Auditoria e controle interno
+✅ Financeiro
+✅ Documentação
+✅ Diagnóstico visual
+✅ Fluxo completo de uma OS real
