@@ -408,25 +408,6 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
         <SidebarContent />
       </motion.div>
       
-      {/* Expand button when collapsed */}
-      {!expanded && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="fixed left-[69px] top-1/2 -translate-y-1/2 z-30"
-        >
-          <Button
-            variant="outline"
-            size="icon"
-            className="h-6 w-6 rounded-full bg-gray-800 border-gray-700 shadow-md"
-            onClick={toggleSidebar}
-          >
-            <ChevronRight size={14} />
-          </Button>
-        </motion.div>
-      )}
-      
       {/* Main content offset */}
       <div className={cn(
         "transition-all duration-300 ease-in-out",
