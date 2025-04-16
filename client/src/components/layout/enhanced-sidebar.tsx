@@ -65,11 +65,11 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const hoverTimerRef = useRef<NodeJS.Timeout | null>(null);
-  
+
   // Current subscription plan - in a real app, this would come from a user context or API
   const subscriptionPlan: SubscriptionPlan = 'intermediario';
   const registrationDate = new Date('2023-04-10');
-  
+
   // Helper function to render content based on plan type
   const renderForPlan = (
     plan: SubscriptionPlan,
@@ -231,18 +231,18 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
                   {section.title}
                 </h2>
               )}
-              
+
               {/* Section Items */}
               <div className="space-y-1">
                 {section.items.map((item, itemIndex) => {
                   const isActive = location === item.href;
-                  
+
                   return (
                     <Tooltip key={itemIndex}>
                       <TooltipTrigger asChild>
                         <motion.button
                           className={cn(
-                            "flex items-center w-full rounded-xl py-3 px-4 transition-colors gap-3",
+                            "flex items-center w-full rounded-xl py-3 px-4 transition-colors gap-2",
                             isActive 
                               ? "bg-blue-50 text-blue-700" 
                               : "text-neutral-800 hover:bg-gray-100 hover:text-blue-700",
@@ -258,7 +258,7 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
                           )}>
                             {item.icon}
                           </div>
-                          
+
                           {expanded && (
                             <motion.span
                               variants={contentVariants}
@@ -280,7 +280,7 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
                   );
                 })}
               </div>
-              
+
               {expanded && sectionIndex < menuSections.length - 1 && (
                 <Separator className="my-4 bg-gray-200" />
               )}
@@ -306,7 +306,7 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
             />
             <AvatarFallback>{user.name?.substring(0, 2).toUpperCase()}</AvatarFallback>
           </Avatar>
-          
+
           {expanded && (
             <motion.div
               variants={contentVariants}
@@ -320,7 +320,7 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
               )}
             </motion.div>
           )}
-          
+
           {expanded && (
             <motion.div
               variants={contentVariants}
@@ -331,7 +331,7 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
             </motion.div>
           )}
         </motion.div>
-        
+
         {/* Subscription Plan Card */}
         {expanded ? (
           <PlanCard 
@@ -408,7 +408,7 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
       >
         <SidebarContent />
       </motion.div>
-      
+
       {/* Main content offset */}
       <div className={cn(
         "transition-all duration-300 ease-in-out",
