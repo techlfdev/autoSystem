@@ -217,7 +217,7 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
         )}
       </div>
 
-      <Separator className="my-2 bg-gray-700/50" />
+      <Separator className="my-2 bg-gray-200" />
 
       {/* Navigation Section */}
       <div className="flex-1 overflow-y-auto py-2 px-3">
@@ -226,7 +226,7 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
             <div key={sectionIndex} className="mb-6">
               {/* Section Title */}
               {expanded && (
-                <h2 className="text-xs uppercase tracking-wider ml-2 mb-3 text-gray-400 font-medium">
+                <h2 className="text-xs uppercase tracking-wider ml-2 mb-3 text-gray-500 font-medium">
                   {section.title}
                 </h2>
               )}
@@ -243,8 +243,8 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
                           className={cn(
                             "flex items-center w-full rounded-xl py-2 px-3 transition-colors",
                             isActive 
-                              ? "bg-gray-800/90 text-white" 
-                              : "text-gray-300 hover:bg-gray-800/60 hover:text-white",
+                              ? "bg-blue-50 text-blue-700" 
+                              : "text-gray-700 hover:bg-gray-100 hover:text-blue-700",
                             !expanded && "justify-center"
                           )}
                           onClick={handleNavClick(item.href)}
@@ -281,7 +281,7 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
               </div>
               
               {expanded && sectionIndex < menuSections.length - 1 && (
-                <Separator className="my-4 bg-gray-700/50" />
+                <Separator className="my-4 bg-gray-200" />
               )}
             </div>
           ))}
@@ -289,16 +289,16 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
       </div>
 
       {/* User Profile Footer */}
-      <div className="border-t border-gray-700/50 p-3">
+      <div className="border-t border-gray-200 p-3">
         {/* User Profile */}
         <motion.div 
           className={cn(
-            "flex items-center p-2 rounded-xl hover:bg-gray-800/60 transition-colors cursor-pointer",
+            "flex items-center p-2 rounded-xl hover:bg-gray-100 transition-colors cursor-pointer",
             !expanded && "justify-center"
           )}
           whileHover={{ scale: 1.02 }}
         >
-          <Avatar className="h-9 w-9 border border-gray-600/50">
+          <Avatar className="h-9 w-9 border border-gray-200">
             <AvatarImage 
               src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" 
               alt={user.name} 
@@ -315,7 +315,7 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
             >
               <p className="text-sm font-medium truncate">{user.name}</p>
               {user.email && (
-                <p className="text-xs text-gray-400 truncate">{user.email}</p>
+                <p className="text-xs text-gray-500 truncate">{user.email}</p>
               )}
             </motion.div>
           )}
@@ -326,7 +326,7 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
               initial="collapsed"
               animate="expanded"
             >
-              <LogOut size={18} className="text-gray-400 hover:text-white transition-colors" />
+              <LogOut size={18} className="text-gray-400 hover:text-gray-700 transition-colors" />
             </motion.div>
           )}
         </motion.div>
@@ -397,7 +397,7 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
         initial={expanded ? "expanded" : "collapsed"}
         animate={expanded ? "expanded" : "collapsed"}
         className={cn(
-          "fixed h-screen z-30 bg-gray-900 border-r border-gray-800 shadow-xl",
+          "fixed h-screen z-30 bg-white border-r border-gray-200 shadow-md",
           expanded ? "border-opacity-20" : "border-opacity-0",
           !expanded && !isHovering && "hover:border-opacity-20",
           className
