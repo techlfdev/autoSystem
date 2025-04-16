@@ -1,0 +1,27 @@
+Atualize imediatamente a página de Ordens de Serviço (OS) para que ela se torne uma interface verdadeiramente completa, poderosa e funcional de gestão operacional. A estrutura atual está extremamente superficial, apresentando apenas uma exibição básica dos dados. Isso é inaceitável para um sistema que se propõe a ser o cérebro digital de uma oficina moderna. Esta página precisa oferecer controle total sobre cada ordem de serviço, status em tempo real, histórico técnico, interação com o cliente, rastreabilidade e registro de toda a movimentação de peças, tempo, profissionais e comunicação. A entrega final deve ser sólida, precisa, livre de qualquer erro ou limitação funcional e com experiência visual moderna e fluida, compatível com um sistema de alto padrão.
+
+Implemente, de forma definitiva, um sistema de exibição avançada para cada OS, em formato de cartão expandido ou painel lateral (drawer), onde todas as informações estejam centralizadas. A cada OS deve estar vinculada a placa e modelo do veículo, a data de criação da ordem, o status atual (aguardando, em execução, aguardando peça, finalizada, cancelada), o cliente responsável, o mecânico designado e o progresso da execução. A barra de progresso deve ser real, conectada ao avanço das etapas técnicas da OS ou à marcação manual do operador. Permita a edição inline do status com dropdowns, e inclua selos visuais de prioridade (baixa, média, alta, urgente), com destaque de cor e texto como "URGENTE", "ALTA", etc.
+
+Dentro do painel de visualização da OS, exiba o checklist técnico completo, com campos marcáveis (checkboxes) para itens como troca de óleo, filtro de ar, verificação de freios, suspensão, pneus, fluídos e outros. Esse checklist deve estar diretamente ligado à evolução da OS e pode influenciar no progresso automaticamente. Inclua também um campo de observações do mecânico, campo de observações do cliente e espaço para anexos de fotos e vídeos. O mecânico deve conseguir adicionar arquivos visuais durante o serviço, com pré-visualização e timestamps. Esses arquivos devem ficar disponíveis tanto na OS quanto no histórico do veículo.
+
+Adicione uma timeline de movimentações da OS, com registros como: “criada em 16/04/2025 20:33”, “iniciada por Pedro Santos”, “peça encomendada”, “cliente notificado por WhatsApp”, “finalizada”. Cada evento deve ser datado, ter um responsável e ser registrado com precisão para rastreabilidade completa.
+
+Adicione a possibilidade de gerar orçamentos e comprovantes de serviço em PDF, com layout profissional, dados técnicos, valores de peças, valores de mão de obra, assinatura digital do cliente e mecânico, e logo da oficina. Estes documentos devem poder ser enviados por WhatsApp com um clique, anexados ou visualizados online, e também armazenados no histórico da OS e do cliente.
+
+Implemente um sistema de notificações automáticas por WhatsApp com templates configuráveis para:
+
+Abertura de OS
+
+Aprovação de orçamento
+
+Atualização de status
+
+Conclusão do serviço
+
+Lembrete de retirada do veículo
+
+A busca por OS precisa ser poderosa: permita filtrar por número da OS, nome do cliente, placa do veículo, status, mecânico, tipo de serviço, data de entrada, data de conclusão prevista e prioridade. A interface da busca e dos filtros precisa ser clara, objetiva, e com usabilidade simples e responsiva. O sistema deve permitir também a criação manual de uma nova OS com formulário completo, associando cliente e veículo existentes, adicionando tarefas, itens, previsão de custo, previsão de entrega e técnico responsável.
+
+Todos os dados da OS devem ser persistidos com segurança, carregados com velocidade e apresentados com fluidez. Não deve haver telas quebradas, campos faltando, botões sem ação ou dados incompletos. A experiência precisa ser intuitiva, produtiva e compatível com o fluxo de uma oficina real.
+
+Essa entrega é prioridade absoluta. A página de OS é um dos pilares operacionais do sistema. Ela precisa refletir o mais alto nível de precisão, organização, design e usabilidade. Nenhuma funcionalidade crítica pode estar ausente. Nenhuma falha de renderização ou carregamento é aceitável. Execute com excelência. 
