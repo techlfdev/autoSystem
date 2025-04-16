@@ -1,0 +1,53 @@
+Implemente a página "Clientes" do sistema SaaS para oficinas mecânicas. Esta página será responsável por centralizar toda a gestão de clientes e seus veículos, funcionando como um CRM embutido e integrado às demais funcionalidades do sistema.
+
+A página deve ser dividida visualmente em três seções principais: listagem de clientes, detalhamento de cliente com histórico e gestão de veículos associados, com animações suaves para transições entre visualizações, mantendo o layout sempre fluido, limpo e funcional.
+
+Na visão geral da página, exiba um painel com filtro inteligente e uma tabela interativa contendo os principais clientes cadastrados. A tabela deve conter as seguintes colunas: Nome, Telefone, Quantidade de veículos, Último serviço, Próxima revisão sugerida e Tags. No topo, um campo de busca deve permitir localizar rapidamente por nome, placa ou CNPJ. Utilize ícones intuitivos para acesso rápido às ações, como editar, excluir, ou abrir conversa no WhatsApp.
+
+Ao clicar sobre um cliente, a visualização lateral deve se expandir ou abrir uma nova rota com o perfil completo do cliente. Neste perfil, exiba os seguintes dados:
+
+Informações principais (nome, CPF/CNPJ, telefone, e-mail, endereço completo)
+
+Histórico completo de serviços realizados
+
+Tags aplicadas ao cliente (com possibilidade de adicionar, remover ou filtrar por elas)
+
+Anexos enviados durante atendimentos (fotos de peças, vídeos explicativos, orçamentos assinados, etc.)
+
+Campo de observações internas (visível apenas para a oficina)
+
+Embaixo dos dados do cliente, exiba todos os veículos associados com informações detalhadas de cada um, incluindo:
+
+Placa, modelo, marca, ano, cor e quilometragem atual
+
+Histórico de manutenções (com datas, tipo de serviço e mecânico responsável)
+
+Sugestão automática de próximas revisões, calculadas por dois critérios:
+
+Tempo desde a última revisão (ex: "Revisão semestral em atraso há 22 dias")
+
+Quilometragem estimada (baseado na média mensal informada ou entrada manual do cliente)
+
+Essas sugestões devem ser geradas automaticamente e exibidas em destaque quando o veículo estiver próximo da necessidade de manutenção, com botão para “Criar lembrete no WhatsApp”.
+
+A integração com o WhatsApp deve permitir:
+
+Envio de mensagens personalizadas com nome, modelo do carro e sugestão de revisão.
+
+Envio de orçamento com resumo dos serviços recomendados, podendo anexar PDF ou imagem.
+
+Agendamento direto com link para confirmação.
+
+Inclua um formulário de novo cliente com validação em tempo real e opção de cadastrar múltiplos veículos já na tela inicial. O formulário deve conter upload de arquivos, seletores de tags, campos mascarados (CPF/CNPJ, telefone), e a possibilidade de adicionar notas internas sobre o perfil.
+
+Para melhorar a retenção e organização, implemente um sistema de segmentação por tags personalizadas, como “VIP”, “Atrasado”, “Frota”, “Só troca óleo”, “Cliente difícil”, etc. Essas tags devem ter cor personalizada e funcionar como filtros inteligentes na tabela de clientes.
+
+Adicionalmente, implemente:
+
+Um indicador visual de fidelidade, que calcula quantos serviços o cliente já realizou e atribui medalhas ou níveis (por exemplo: Bronze, Prata, Ouro), com base no número de visitas ou no valor total gasto.
+
+Um log de interações que registra todas as ações feitas: orçamentos enviados, contatos realizados, status de retorno, etc. Isso pode ser usado para acompanhar o atendimento mesmo quando for repassado para outro funcionário.
+
+Campo de status para saber se o cliente está “Ativo”, “Inativo” ou “Recuperação”, útil para campanhas de marketing.
+
+Garanta que toda a página esteja animada com transições suaves usando framer-motion, estilizada com TailwindCSS em tom branco puro como fundo principal e tipografia Manrope com tracking-tighter. A usabilidade deve ser refinada, com foco em rapidez, praticidade e clareza visual.
