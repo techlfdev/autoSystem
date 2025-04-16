@@ -77,9 +77,9 @@ export function AppointmentList({ appointments, onEditAppointment, onDeleteAppoi
 
                   <div className="flex items-center gap-2 md:flex-col">
                     <Button
-                      variant="ghost"
+                      variant="outline"
                       size="sm"
-                      className="flex-1 md:w-full text-sidebar-foreground/70 hover:text-sidebar-foreground hover:underline"
+                      className="flex-1 md:w-full"
                       onClick={() => onEditAppointment(appointment)}
                     >
                       <Edit2 className="h-4 w-4 mr-2" />
@@ -89,9 +89,9 @@ export function AppointmentList({ appointments, onEditAppointment, onDeleteAppoi
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
                         <Button
-                          variant="ghost"
+                          variant="outline"
                           size="sm"
-                          className="flex-1 md:w-full text-destructive/70 hover:text-destructive hover:underline"
+                          className="flex-1 md:w-full text-destructive hover:text-destructive"
                         >
                           <Trash2 className="h-4 w-4 mr-2" />
                           Excluir
