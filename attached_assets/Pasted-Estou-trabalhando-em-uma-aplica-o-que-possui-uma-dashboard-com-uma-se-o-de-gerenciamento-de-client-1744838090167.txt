@@ -1,0 +1,18 @@
+Estou trabalhando em uma aplicação que possui uma dashboard com uma seção de gerenciamento de clientes. A interface já está renderizando corretamente a saudação personalizada, o campo de busca, os filtros, e a tabela de listagem de clientes, mas o botão principal de ação — responsável pela criação de novos registros de clientes — não está presente nem funcional na tela.
+
+Quero que você resolva isso de forma completa, seguindo as seguintes instruções:
+
+Analise o componente onde esta tela está sendo renderizada. Identifique se o botão de criação de novo cliente foi simplesmente omitido, se está condicionado a algum estado, permissão ou feature flag incorretamente configurada, ou se há erro de import ou renderização que está impedindo sua aparição.
+
+Implemente o botão de ação principal, posicionado acima da tabela de clientes, com destaque visual como botão primário (variant="primary" ou equivalente, dependendo da UI library usada). O botão deve conter o label "Novo Cliente" e, opcionalmente, um ícone de adição (<Plus /> de lucide-react, ou equivalente).
+
+Garanta que o botão esteja sempre visível para usuários autenticados com permissão de cadastro, sem depender de lógicas de carregamento da tabela ou da presença de dados. Ele deve estar sempre acessível, mesmo quando não há clientes listados.
+
+Ao clicar no botão, a aplicação deve abrir um formulário (ou modal, se for a abordagem padrão do projeto) que permita a criação de um novo cliente. Este formulário deve conter, no mínimo, os seguintes campos: Nome completo, Telefone, Veículo (ou Placa), e Data do último serviço. Todos os campos devem ter validação de entrada.
+
+Garanta que o envio do formulário esteja corretamente conectado com o backend ou mock existente. Caso a função de criação ainda não esteja implementada, crie uma função local (placeholder) com console log e estrutura adequada para posterior integração.
+
+Após isso, confirme que o novo cliente aparece corretamente na tabela após a criação (via revalidação, refetch ou uso de estado local/global, dependendo da arquitetura do projeto).
+
+Faça todas as alterações necessárias nos arquivos de componentes, funções auxiliares e estilos, garantindo que o novo botão esteja funcional, integrado e visualmente coerente com o restante da UI. Priorize clareza, responsividade e acessibilidade (atributos como aria-label, foco ao abrir modal, etc.).
+
