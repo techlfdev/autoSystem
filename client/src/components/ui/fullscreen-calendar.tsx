@@ -44,7 +44,7 @@ interface CalendarData {
 interface FullScreenCalendarProps {
   data: CalendarData[]
   onDateSelect?: (date: Date) => void
-  onNewAppointment?: () => void
+  onNewAppointment: () => void
 }
 
 const colStartClasses = [
