@@ -241,11 +241,11 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
                       <TooltipTrigger asChild>
                         <motion.button
                           className={cn(
-                            "flex items-center w-full rounded-xl py-2 px-3 transition-colors",
+                            "flex items-center w-full rounded-xl py-3 px-4 transition-colors gap-3",
                             isActive 
                               ? "bg-blue-50 text-blue-700" 
-                              : "text-gray-700 hover:bg-gray-100 hover:text-blue-700",
-                            !expanded && "justify-center"
+                              : "text-neutral-800 hover:bg-gray-100 hover:text-blue-700",
+                            (!expanded && !isMobile) && "justify-center"
                           )}
                           onClick={handleNavClick(item.href)}
                           whileHover={{ scale: 1.02 }}
@@ -263,7 +263,7 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
                               variants={contentVariants}
                               initial="collapsed"
                               animate="expanded"
-                              className="ml-3 font-medium"
+                              className="text-sm font-medium"
                             >
                               {item.label}
                             </motion.span>
@@ -375,12 +375,12 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
             <Button 
               variant="ghost" 
               size="icon" 
-              className="fixed z-20 top-3 left-3"
+              className="absolute top-4 left-4 z-50"
             >
-              <LayoutDashboard className="h-5 w-5" />
+              <Menu className="h-5 w-5 text-neutral-800" />
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="w-[280px] p-0 bg-gray-900 border-r border-gray-800">
+          <SheetContent side="left" className="w-[280px] p-0 bg-white border-r transition-all duration-300">
             <SidebarContent />
           </SheetContent>
         </Sheet>
