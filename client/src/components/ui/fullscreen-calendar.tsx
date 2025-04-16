@@ -132,7 +132,7 @@ export function FullScreenCalendar({ data }: FullScreenCalendarProps) {
               className="w-full rounded-none shadow-none first:rounded-s-lg last:rounded-e-lg focus-visible:z-10 md:w-auto"
               variant="outline"
             >
-              Today
+              {format(firstDayCurrentMonth, "MMMM")}
             </Button>
             <Button
               onClick={nextMonth}

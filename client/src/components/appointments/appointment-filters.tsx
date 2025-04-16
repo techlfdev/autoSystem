@@ -1,56 +1,28 @@
-
-import { Button } from '@/components/ui/button';
+import { Search } from 'lucide-react';
+import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Plus, Filter } from 'lucide-react';
 
 export function AppointmentFilters() {
   return (
-    <div className="flex items-center gap-2">
-      <Select defaultValue="all">
-        <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Mecânico" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">Todos</SelectItem>
-          <SelectItem value="1">Pedro Santos</SelectItem>
-          <SelectItem value="2">Maria Silva</SelectItem>
-        </SelectContent>
-      </Select>
-
-      <Select defaultValue="all">
-        <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Box" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="all">Todos</SelectItem>
-          <SelectItem value="1">Box 1</SelectItem>
-          <SelectItem value="2">Box 2</SelectItem>
-        </SelectContent>
-      </Select>
-
+    <div className="flex items-center gap-4 px-4">
+      <div className="flex-1 relative">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        <Input 
+          placeholder="Buscar agendamentos..." 
+          className="pl-9"
+        />
+      </div>
       <Select defaultValue="all">
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder="Status" />
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="all">Todos</SelectItem>
-          <SelectItem value="scheduled">Agendado</SelectItem>
-          <SelectItem value="confirmed">Confirmado</SelectItem>
-          <SelectItem value="in_progress">Em Andamento</SelectItem>
-          <SelectItem value="completed">Concluído</SelectItem>
-          <SelectItem value="canceled">Cancelado</SelectItem>
+          <SelectItem value="scheduled">Agendados</SelectItem>
+          <SelectItem value="completed">Concluídos</SelectItem>
+          <SelectItem value="canceled">Cancelados</SelectItem>
         </SelectContent>
       </Select>
-
-      <Button variant="outline">
-        <Filter className="h-4 w-4 mr-2" />
-        Mais Filtros
-      </Button>
-
-      <Button>
-        <Plus className="h-4 w-4 mr-2" />
-        Novo Agendamento
-      </Button>
     </div>
   );
 }
