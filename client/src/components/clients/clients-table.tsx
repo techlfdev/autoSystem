@@ -1,4 +1,3 @@
-
 import { DataTable } from '@/components/ui/data-table';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -75,11 +74,13 @@ export function ClientsTable({ onClientSelect, selectedClientId }: ClientsTableP
   ];
 
   return (
-    <DataTable 
-      columns={columns}
-      data={[]}
-      onRowClick={(row) => onClientSelect(row.original.id)}
-      selectedRowId={selectedClientId}
-    />
+    <div className="overflow-auto custom-scrollbar"> {/* Added custom-scrollbar class */}
+      <DataTable 
+        columns={columns}
+        data={[]}
+        onRowClick={(row) => onClientSelect(row.original.id)}
+        selectedRowId={selectedClientId}
+      />
+    </div>
   );
 }

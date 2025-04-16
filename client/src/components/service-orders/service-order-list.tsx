@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -147,7 +146,7 @@ export function ServiceOrderList({
               <TabsTrigger value="photos">Fotos</TabsTrigger>
               <TabsTrigger value="timeline">Timeline</TabsTrigger>
             </TabsList>
-            <ScrollArea className="h-[calc(100vh-12rem)] mt-4">
+            <ScrollArea className="h-[calc(100vh-12rem)] mt-4 custom-scrollbar"> {/* Added custom-scrollbar class */}
               {selectedOrder && (
                 <>
                   <TabsContent value="details">
