@@ -46,7 +46,6 @@ interface CalendarData {
 interface FullScreenCalendarProps {
   data: CalendarData[]
   onDateSelect?: (date: Date) => void
-  onNewAppointment?: (selectedDate?: Date) => void
 }
 
 const colStartClasses = [
@@ -152,7 +151,7 @@ export function FullScreenCalendar({ data, onDateSelect, onNewAppointment }: Ful
 
           <Button 
             className="w-full gap-2 md:w-auto"
-            onClick={() => onNewAppointment?.(selectedDay)}
+            onClick={() => onDateSelect?.(selectedDay)}
           >
             <PlusCircle size={16} strokeWidth={2} aria-hidden="true" />
             <span>Novo Agendamento</span>

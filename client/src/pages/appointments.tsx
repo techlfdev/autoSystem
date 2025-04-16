@@ -81,7 +81,6 @@ export default function AppointmentsPage() {
             <FullScreenCalendar 
               data={dummyEvents}
               onDateSelect={handleNewAppointment}
-              onNewAppointment={handleNewAppointment}
             />
             
             <AppointmentList
