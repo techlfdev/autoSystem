@@ -68,6 +68,25 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
   // Current subscription plan - in a real app, this would come from a user context or API
   const subscriptionPlan: SubscriptionPlan = 'intermediario';
   const registrationDate = new Date('2023-04-10');
+  
+  // Helper function to render content based on plan type
+  const renderForPlan = (
+    plan: SubscriptionPlan,
+    gratuito: React.ReactNode,
+    intermediario: React.ReactNode,
+    avancado: React.ReactNode
+  ) => {
+    switch (plan) {
+      case 'gratuito':
+        return gratuito;
+      case 'intermediario':
+        return intermediario;
+      case 'avancado':
+        return avancado;
+      default:
+        return null;
+    }
+  };
 
   // Define menu sections
   const menuSections: MenuSection[] = [
@@ -320,20 +339,28 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
             className="mx-1 mt-3"
           />
         ) : (
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <div className="flex justify-center mt-3 cursor-help">
-                {subscriptionPlan === 'gratuito' && <Timer className="h-5 w-5 text-gray-400" />}
-                {subscriptionPlan === 'intermediario' && <ShieldCheck className="h-5 w-5 text-blue-500" />}
-                {subscriptionPlan === 'avancado' && <Crown className="h-5 w-5 text-amber-500" />}
-              </div>
-            </TooltipTrigger>
-            <TooltipContent side="right">
-              {subscriptionPlan === 'gratuito' ? 'Plano Gratuito' : 
-               subscriptionPlan === 'intermediario' ? 'Plano Intermediário' : 
-               'Plano Avançado'}
-            </TooltipContent>
-          </Tooltip>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div className="flex justify-center mt-3 cursor-help">
+                  {renderForPlan(
+                    subscriptionPlan,
+                    <Timer className="h-5 w-5 text-gray-400" />,
+                    <ShieldCheck className="h-5 w-5 text-blue-500" />,
+                    <Crown className="h-5 w-5 text-amber-500" />
+                  )}
+                </div>
+              </TooltipTrigger>
+              <TooltipContent side="right">
+                {renderForPlan(
+                  subscriptionPlan,
+                  'Plano Gratuito',
+                  'Plano Intermediário',
+                  'Plano Avançado'
+                )}
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         )}
       </div>
     </div>
