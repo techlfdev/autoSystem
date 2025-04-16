@@ -1,7 +1,6 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'wouter';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
   LayoutDashboard, 
   Calendar, 
@@ -12,17 +11,22 @@ import {
   BarChart3,
   Settings, 
   HelpCircle,
+  LogOut,
   Car,
+  ChevronLeft,
+  ChevronRight,
   ShieldCheck,
   Crown,
-  Timer,
-  ChevronRight
+  Timer
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Separator } from '@/components/ui/separator';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { PlanCard } from '@/components/subscription/plan-card';
 
 interface MenuItem {
   icon: React.ReactNode;
@@ -40,6 +44,7 @@ interface SidebarProps {
   user?: {
     name: string;
     email?: string;
+    role?: string;
     avatar?: string;
   };
 }
@@ -49,13 +54,11 @@ const SIDEBAR_STATE_KEY = 'sidebar_expanded';
 export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', email: 'carlos@autogestao.com' } }: SidebarProps) {
   const [location, navigate] = useLocation();
   const isMobile = useIsMobile();
-  const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [expanded, setExpanded] = useState(() => {
-    if (isMobile) return false;
     const savedState = localStorage.getItem(SIDEBAR_STATE_KEY);
-    return savedState !== null ? savedState === 'true' : true;
+    return savedState !== null ? savedState === 'true' : !isMobile;
   });
-  
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
   const subscriptionPlan = 'intermediario';
   const registrationDate = new Date('2023-04-10');
 
@@ -87,10 +90,8 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', emai
   ];
 
   useEffect(() => {
-    if (!isMobile) {
-      localStorage.setItem(SIDEBAR_STATE_KEY, expanded.toString());
-    }
-  }, [expanded, isMobile]);
+    localStorage.setItem(SIDEBAR_STATE_KEY, expanded.toString());
+  }, [expanded]);
 
   const handleNavClick = (href: string) => (e: React.MouseEvent) => {
     e.preventDefault();
@@ -128,18 +129,15 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', emai
       <div className="flex items-center justify-between p-4 border-b border-gray-100">
         <div className="flex items-center">
           <Car className="h-6 w-6 text-black" />
-          <span className={cn("ml-3 text-xl font-semibold text-black", !expanded && "hidden")}>AutoGestão</span>
+          <span className="ml-3 text-xl font-semibold text-black">AutoGestão</span>
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto py-4 px-3">
+      <div className="flex-1 overflow-y-auto py-4">
         {menuSections.map((section, sectionIndex) => (
           <div key={sectionIndex} className="mb-6">
-            <h2 className={cn(
-              "text-xs uppercase tracking-wider mb-2 text-gray-500 font-medium",
-              expanded ? "px-3" : "text-center"
-            )}>
-              {expanded ? section.title : "•••"}
+            <h2 className="text-xs uppercase tracking-wider px-4 mb-2 text-gray-500 font-medium">
+              {section.title}
             </h2>
 
             <div className="space-y-1">
@@ -150,15 +148,14 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', emai
                     key={itemIndex}
                     onClick={handleNavClick(item.href)}
                     className={cn(
-                      "flex items-center w-full gap-3 py-2 px-3 text-black transition-colors rounded-md",
-                      isActive ? "bg-gray-100" : "hover:bg-gray-50",
-                      !expanded && "justify-center"
+                      "flex items-center w-full gap-2 py-2 px-4 text-black transition-colors",
+                      isActive ? "bg-gray-100 rounded-md" : "hover:bg-gray-50"
                     )}
                   >
                     <div className={cn("text-black", isActive && "text-blue-600")}>
                       {item.icon}
                     </div>
-                    {expanded && <span className="text-sm font-medium">{item.label}</span>}
+                    <span className="text-sm font-medium">{item.label}</span>
                   </button>
                 );
               })}
@@ -168,7 +165,7 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', emai
       </div>
 
       <div className="border-t border-gray-100 p-4">
-        <div className={cn("flex items-center", expanded ? "gap-3" : "justify-center")}>
+        <div className="flex items-center gap-3 mb-3">
           <Avatar className="h-9 w-9 border border-gray-200">
             <AvatarImage 
               src={user.avatar || "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80"}
@@ -176,15 +173,15 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', emai
             />
             <AvatarFallback>{user.name?.substring(0, 2).toUpperCase()}</AvatarFallback>
           </Avatar>
-          {expanded && (
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-black truncate">{user.name}</p>
-              <div className="flex items-center gap-2">
-                <PlanIcon />
-                <span className="text-xs text-gray-600 truncate">{getPlanName()}</span>
-              </div>
-            </div>
-          )}
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-medium text-black truncate">{user.name}</p>
+            <p className="text-xs text-gray-500 truncate">{user.email}</p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 px-1">
+          <PlanIcon />
+          <span className="text-xs text-gray-600">{getPlanName()}</span>
         </div>
       </div>
     </div>
@@ -218,7 +215,7 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', emai
     <>
       <motion.div
         className={cn(
-          "hidden md:block fixed h-screen z-30 bg-white border-r border-gray-100",
+          "fixed h-screen z-30 bg-white border-r border-gray-100",
           expanded ? "w-[240px]" : "w-[70px]",
           className
         )}
@@ -227,8 +224,9 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', emai
       </motion.div>
 
       <div className={cn(
-        "hidden md:block transition-all duration-300 ease-in-out",
-        expanded ? "ml-[240px]" : "ml-[70px]"
+        "transition-all duration-300 ease-in-out",
+        expanded ? "ml-[240px]" : "ml-[70px]",
+        isMobile && "ml-0"
       )} />
     </>
   );
