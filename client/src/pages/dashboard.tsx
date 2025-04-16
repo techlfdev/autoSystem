@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { DashboardLayout } from '@/components/layout/dashboard-layout';
+import { EnhancedDashboardLayout } from '@/components/layout/enhanced-dashboard-layout';
 import { MetricCard } from '@/components/dashboard/metric-card';
 import { ServicesInProgress, Service } from '@/components/dashboard/services-in-progress';
 import { DailySchedule, Appointment } from '@/components/dashboard/daily-schedule';
@@ -47,6 +47,14 @@ interface DashboardSummary {
   };
 }
 
+// Mock user data - in a real app, this would come from an auth context or API
+const currentUser = {
+  name: 'Carlos Silva',
+  email: 'carlos@autogestao.com',
+  role: 'Gerente',
+  avatar: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80'
+};
+
 export default function Dashboard() {
   // Fetch dashboard data
   const { data, isLoading, error } = useQuery<DashboardSummary>({
@@ -82,7 +90,10 @@ export default function Dashboard() {
   };
 
   return (
-    <DashboardLayout>
+    <EnhancedDashboardLayout 
+      user={currentUser}
+      todayAppointmentsCount={data?.todayAppointments?.count || 0}
+    >
       {/* Metric Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <MetricCard
@@ -155,6 +166,6 @@ export default function Dashboard() {
           isLoading={isLoading}
         />
       </div>
-    </DashboardLayout>
+    </EnhancedDashboardLayout>
   );
 }

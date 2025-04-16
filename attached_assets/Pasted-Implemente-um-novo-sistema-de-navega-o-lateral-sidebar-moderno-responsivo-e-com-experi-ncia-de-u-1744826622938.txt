@@ -1,0 +1,74 @@
+Implemente um novo sistema de navegação lateral (sidebar) moderno, responsivo e com experiência de usuário aprimorada, substituindo completamente a sidebar atual.
+
+O novo menu lateral deve seguir o seguinte comportamento e estética (baseado no vídeo fornecido):
+
+Animação fluida ao recolher/expandir: a sidebar deve colapsar automaticamente quando o cursor do usuário sair de sua área e expandir suavemente ao passar o mouse por cima. Use Framer Motion para animar suavemente o width, opacity e transform dos elementos.
+
+Estado persistente: permita que o estado "expandido/colapsado" seja salvo via localStorage ou cookie, com fallback para comportamento padrão colapsado em mobile.
+
+Layout moderno e escuro: use Tailwind CSS com transições suaves, ícones do lucide-react, bordas arredondadas (rounded-2xl), sombreamento sutil (shadow-lg) e uso de gradientes ou variações suaves de cinza escuro para dar profundidade.
+
+Comportamento responsivo: em telas menores, a sidebar deve funcionar como um drawer lateral (usando Sheet), mas mantendo a mesma estética e animações. Garanta que o comportamento seja fluido e consistente em todas as resoluções.
+
+Logo no topo + separador visual: inclua uma logo pequena e centralizada no topo da sidebar, com espaçamento adequado e um divisor visual com opacidade baixa para separar do restante do conteúdo.
+
+Tooltips ao colapsar: ao colapsar, os ícones de navegação devem permanecer visíveis, e os nomes dos menus devem ser exibidos em tooltip ao passar o mouse. Use Tooltip do Radix UI para isso.
+
+Lista de menus e seções:
+
+Menu Principal:
+
+Dashboard (ícone: layout-dashboard)
+
+Agendamentos (calendar)
+
+Ordens de Serviço (wrench)
+
+Clientes (user-round)
+
+Estoque (box)
+
+Financeiro:
+
+Faturamento (dollar-sign)
+
+Relatórios (bar-chart-3)
+
+Sistema:
+
+Configurações (settings)
+
+Ajuda (help-circle)
+
+Rodapé com perfil do usuário: ao final da sidebar, inclua um card com nome, email e ícone do usuário, com possibilidade de clique para "perfil" ou "logout", similar ao exemplo do vídeo.
+
+Dashboard Principal:
+
+Na área principal do sistema, acima dos cards e estatísticas, insira uma mensagem dinâmica de boas-vindas personalizada com o nome do usuário e quantidade de agendamentos do dia. A mensagem deve se adaptar ao momento do dia:
+
+Exibir "Bom dia", "Boa tarde" ou "Boa noite" com base na hora local do navegador.
+
+Exemplo:
+"Boa tarde, João! Você tem 4 agendamentos hoje."
+
+Implemente uma função auxiliar como getGreetingByTime() para retornar a saudação adequada com base em new Date().getHours() e aplique isso diretamente no componente de dashboard.
+
+ts
+Copiar
+Editar
+function getGreetingByTime() {
+  const hour = new Date().getHours()
+  if (hour < 12) return "Bom dia"
+  if (hour < 18) return "Boa tarde"
+  return "Boa noite"
+}
+Exiba o nome do usuário recuperado da sessão/contexto de autenticação, e a contagem de agendamentos deve vir da API ou contexto central do sistema. Exemplo de JSX:
+
+tsx
+Copiar
+Editar
+<h1 className="text-2xl font-semibold">
+  {getGreetingByTime()}, {user.name}! Você tem {agendamentosHoje} agendamentos hoje.
+</h1>
+Garanta que o componente seja acessível, com animações suaves e responsividade adequada.
+
