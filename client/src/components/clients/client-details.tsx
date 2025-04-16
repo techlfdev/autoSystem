@@ -11,7 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useQuery } from '@tanstack/react-query';
-import { Car, Phone, Mail, MapPin, Tags, FileText, WhatsappIcon, Calendar, Clock, Wrench, AlertTriangle, Upload, Pencil, Plus } from 'lucide-react';
+import { Car, Phone, Mail, MapPin, Tags, FileText, MessageCircle, Calendar, Clock, Wrench, AlertTriangle, Upload, Pencil, Plus } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface ClientDetailsProps {
@@ -108,7 +108,7 @@ export function ClientDetails({ clientId }: ClientDetailsProps) {
             </div>
           </div>
           <Button className="flex items-center gap-2">
-            <WhatsappIcon className="h-4 w-4" />
+            <MessageCircle className="h-4 w-4" />
             Enviar Mensagem
           </Button>
         </div>
