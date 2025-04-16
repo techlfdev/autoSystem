@@ -11,7 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useQuery } from '@tanstack/react-query';
-import { Car, Phone, Mail, MapPin, Tags, FileText, WhatsappIcon, Calendar, Clock, Tool, AlertTriangle, Upload, Pencil, Plus } from 'lucide-react';
+import { Car, Phone, Mail, MapPin, Tags, FileText, WhatsappIcon, Calendar, Clock, Wrench, AlertTriangle, Upload, Pencil, Plus } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface ClientDetailsProps {
