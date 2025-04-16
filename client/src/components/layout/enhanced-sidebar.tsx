@@ -17,14 +17,13 @@ import {
   ChevronRight,
   ShieldCheck,
   Crown,
-  Timer,
-  Menu
+  Timer
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Separator } from '@/components/ui/separator';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from '@/components/ui/sheet';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { PlanCard, SubscriptionPlan } from '@/components/subscription/plan-card';
@@ -43,7 +42,7 @@ interface MenuSection {
 interface SidebarProps {
   className?: string;
   user?: {
-    name: string;Button
+    name: string;
     email?: string;
     role?: string;
     avatar?: string;
@@ -57,7 +56,6 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
   const [location, navigate] = useLocation();
   const isMobile = useIsMobile();
   const [expanded, setExpanded] = useState(() => {
-    // Get initial state from localStorage, default to true on desktop and false on mobile
     const savedState = localStorage.getItem(SIDEBAR_STATE_KEY);
     return savedState !== null ? savedState === 'true' : !isMobile;
   });
@@ -66,11 +64,9 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
   const sidebarRef = useRef<HTMLDivElement>(null);
   const hoverTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Current subscription plan - in a real app, this would come from a user context or API
   const subscriptionPlan: SubscriptionPlan = 'intermediario';
   const registrationDate = new Date('2023-04-10');
 
-  // Helper function to render content based on plan type
   const renderForPlan = (
     plan: SubscriptionPlan,
     gratuito: React.ReactNode,
@@ -89,7 +85,6 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
     }
   };
 
-  // Define menu sections
   const menuSections: MenuSection[] = [
     {
       title: 'Menu Principal',
@@ -117,12 +112,10 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
     }
   ];
 
-  // Update localStorage when expanded state changes
   useEffect(() => {
     localStorage.setItem(SIDEBAR_STATE_KEY, expanded.toString());
   }, [expanded]);
 
-  // Mouse enter/leave handlers with delay
   const handleMouseEnter = () => {
     setIsHovering(true);
     if (hoverTimerRef.current) {
@@ -132,7 +125,7 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
     if (!expanded) {
       hoverTimerRef.current = setTimeout(() => {
         setExpanded(true);
-      }, 300); // Delay expanding for better UX
+      }, 300);
     }
   };
 
@@ -145,11 +138,10 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
     if (expanded) {
       hoverTimerRef.current = setTimeout(() => {
         setExpanded(false);
-      }, 500); // Delay collapsing for better UX
+      }, 500);
     }
   };
 
-  // Handle navigation click
   const handleNavClick = (href: string) => (e: React.MouseEvent) => {
     e.preventDefault();
     navigate(href);
@@ -158,12 +150,10 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
     }
   };
 
-  // Toggle sidebar expanded state
   const toggleSidebar = () => {
     setExpanded(prev => !prev);
   };
 
-  // Animation variants
   const sidebarVariants = {
     expanded: {
       width: '240px',
@@ -186,103 +176,56 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
     }
   };
 
-  // Render sidebar content
   const SidebarContent = () => (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full bg-white">
       {/* Logo Section */}
-      <div className="flex items-center justify-center p-4">
-        <div className="flex items-center">
+      <div className="flex items-center justify-between p-4 border-b border-gray-100">
+        <div className="flex items-center gap-3">
           <Car className="h-6 w-6 text-primary" />
-          <AnimatePresence>
-            {expanded && (
-              <motion.span
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -10 }}
-                className="ml-3 text-xl font-semibold"
-              >
-                AutoGestão
-              </motion.span>
-            )}
-          </AnimatePresence>
+          <span className="text-xl font-semibold tracking-tight">AutoGestão</span>
         </div>
-        {expanded && (
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute right-2 top-3 h-8 w-8 rounded-full"
-            onClick={toggleSidebar}
-          >
-            <ChevronLeft size={18} />
-          </Button>
-        )}
       </div>
 
-      <Separator className="my-2 bg-gray-200" />
-
       {/* Navigation Section */}
-      <div className="flex-1 overflow-y-auto py-2 px-3">
+      <div className="flex-1 overflow-y-auto py-4">
         <TooltipProvider delayDuration={300}>
           {menuSections.map((section, sectionIndex) => (
-            <div key={sectionIndex} className="mb-6">
-              {/* Section Title */}
-              {expanded && (
-                <h2 className="text-xs uppercase tracking-wider ml-2 mb-3 text-gray-500 font-medium">
-                  {section.title}
-                </h2>
-              )}
+            <div key={sectionIndex} className="mb-6 px-3">
+              <h2 className="text-xs uppercase tracking-tight ml-2 mb-3 text-gray-500 font-medium">
+                {section.title}
+              </h2>
 
-              {/* Section Items */}
               <div className="space-y-1">
                 {section.items.map((item, itemIndex) => {
                   const isActive = location === item.href;
-
                   return (
-                    <Tooltip key={itemIndex}>
-                      <TooltipTrigger asChild>
-                        <motion.button
-                          className={cn(
-                            "flex items-center w-full rounded-xl py-3 px-4 transition-colors gap-2",
-                            isActive 
-                              ? "bg-blue-50 text-blue-700" 
-                              : "text-neutral-800 hover:bg-gray-100 hover:text-blue-700",
-                            (!expanded && !isMobile) && "justify-center"
-                          )}
-                          onClick={handleNavClick(item.href)}
-                          whileHover={{ scale: 1.02 }}
-                          whileTap={{ scale: 0.98 }}
-                        >
-                          <div className={cn(
-                            "flex items-center justify-center",
-                            isActive && "text-primary"
-                          )}>
-                            {item.icon}
-                          </div>
-
-                          {expanded && (
-                            <motion.span
-                              variants={contentVariants}
-                              initial="collapsed"
-                              animate="expanded"
-                              className="text-sm font-medium"
-                            >
-                              {item.label}
-                            </motion.span>
-                          )}
-                        </motion.button>
-                      </TooltipTrigger>
-                      {!expanded && (
-                        <TooltipContent side="right">
-                          {item.label}
-                        </TooltipContent>
+                    <motion.button
+                      key={itemIndex}
+                      className={cn(
+                        "flex items-center w-full rounded-xl py-3 px-4 transition-colors gap-3",
+                        isActive 
+                          ? "bg-blue-50 text-blue-700" 
+                          : "text-neutral-900 hover:bg-gray-100",
+                        "text-sm font-medium tracking-tight"
                       )}
-                    </Tooltip>
+                      onClick={handleNavClick(item.href)}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <div className={cn(
+                        "flex items-center justify-center",
+                        isActive && "text-blue-700"
+                      )}>
+                        {item.icon}
+                      </div>
+                      <span>{item.label}</span>
+                    </motion.button>
                   );
                 })}
               </div>
 
-              {expanded && sectionIndex < menuSections.length - 1 && (
-                <Separator className="my-4 bg-gray-200" />
+              {sectionIndex < menuSections.length - 1 && (
+                <Separator className="my-4 bg-gray-100" />
               )}
             </div>
           ))}
@@ -290,106 +233,79 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
       </div>
 
       {/* User Profile Footer */}
-      <div className="border-t border-gray-200 p-3">
-        {/* User Profile */}
-        <motion.div 
-          className={cn(
-            "flex items-center p-2 rounded-xl hover:bg-gray-100 transition-colors cursor-pointer",
-            !expanded && "justify-center"
-          )}
-          whileHover={{ scale: 1.02 }}
-        >
-          <Avatar className="h-9 w-9 border border-gray-200">
+      <div className="border-t border-gray-100 p-4">
+        <div className="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-50 transition-colors">
+          <Avatar className="h-10 w-10 border border-gray-100">
             <AvatarImage 
-              src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" 
+              src={user.avatar || "https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80"} 
               alt={user.name} 
             />
             <AvatarFallback>{user.name?.substring(0, 2).toUpperCase()}</AvatarFallback>
           </Avatar>
 
-          {expanded && (
-            <motion.div
-              variants={contentVariants}
-              initial="collapsed"
-              animate="expanded"
-              className="ml-3 flex-1 min-w-0"
-            >
-              <p className="text-sm font-medium truncate">{user.name}</p>
-              {user.email && (
-                <p className="text-xs text-gray-500 truncate">{user.email}</p>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-medium text-neutral-900 tracking-tight truncate">
+              {user.name}
+            </p>
+            {user.email && (
+              <p className="text-xs text-gray-500 truncate">
+                {user.email}
+              </p>
+            )}
+          </div>
+
+          <LogOut size={18} className="text-gray-400 hover:text-gray-700 transition-colors" />
+        </div>
+
+        <div className="mt-3 p-3 bg-gray-50 rounded-xl">
+          <div className="flex items-center gap-2">
+            {renderForPlan(
+              subscriptionPlan,
+              <Timer className="h-5 w-5 text-gray-400" />,
+              <ShieldCheck className="h-5 w-5 text-blue-500" />,
+              <Crown className="h-5 w-5 text-amber-500" />
+            )}
+            <span className="text-sm font-medium tracking-tight">
+              {renderForPlan(
+                subscriptionPlan,
+                'Plano Gratuito',
+                'Plano Intermediário',
+                'Plano Avançado'
               )}
-            </motion.div>
-          )}
-
-          {expanded && (
-            <motion.div
-              variants={contentVariants}
-              initial="collapsed"
-              animate="expanded"
-            >
-              <LogOut size={18} className="text-gray-400 hover:text-gray-700 transition-colors" />
-            </motion.div>
-          )}
-        </motion.div>
-
-        {/* Subscription Plan Card */}
-        {expanded ? (
-          <PlanCard 
-            plan={subscriptionPlan} 
-            registrationDate={registrationDate} 
-            className="mx-1 mt-3"
-          />
-        ) : (
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <div className="flex justify-center mt-3 cursor-help">
-                  {renderForPlan(
-                    subscriptionPlan,
-                    <Timer className="h-5 w-5 text-gray-400" />,
-                    <ShieldCheck className="h-5 w-5 text-blue-500" />,
-                    <Crown className="h-5 w-5 text-amber-500" />
-                  )}
-                </div>
-              </TooltipTrigger>
-              <TooltipContent side="right">
-                {renderForPlan(
-                  subscriptionPlan,
-                  'Plano Gratuito',
-                  'Plano Intermediário',
-                  'Plano Avançado'
-                )}
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        )}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );
 
-  // Mobile sidebar
   if (isMobile) {
     return (
       <>
-        <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-          <SheetTrigger asChild>
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="absolute top-4 left-4 z-50"
-            >
-              <Menu className="h-5 w-5 text-neutral-800" />
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="left" className="w-[280px] p-0 bg-white border-r transition-all duration-300">
-            <SidebarContent />
-          </SheetContent>
-        </Sheet>
+        <div className="fixed top-0 left-0 right-0 h-16 bg-white border-b border-gray-100 flex items-center px-4 z-40">
+          <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+            <SheetTrigger asChild>
+              <Button 
+                variant="ghost" 
+                size="icon"
+                className="mr-4"
+              >
+                <LayoutDashboard className="h-5 w-5 text-neutral-900" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-[280px] p-0">
+              <SheetTitle className="sr-only">Menu de Navegação</SheetTitle>
+              <SidebarContent />
+            </SheetContent>
+          </Sheet>
+          <Car className="h-6 w-6 text-primary" />
+          <span className="ml-3 text-xl font-semibold tracking-tight">AutoGestão</span>
+        </div>
+        <div className="h-16" /> {/* Spacer for fixed header */}
       </>
     );
   }
 
-  // Desktop sidebar
   return (
     <>
       <motion.div
@@ -398,9 +314,7 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
         initial={expanded ? "expanded" : "collapsed"}
         animate={expanded ? "expanded" : "collapsed"}
         className={cn(
-          "fixed h-screen z-30 bg-white border-r border-gray-200 shadow-md",
-          expanded ? "border-opacity-20" : "border-opacity-0",
-          !expanded && !isHovering && "hover:border-opacity-20",
+          "fixed h-screen z-30 bg-white border-r border-gray-100",
           className
         )}
         onMouseEnter={handleMouseEnter}
@@ -409,14 +323,10 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
         <SidebarContent />
       </motion.div>
 
-      {/* Main content offset */}
       <div className={cn(
         "transition-all duration-300 ease-in-out",
-        expanded ? "ml-[240px]" : "ml-[70px]",
-        isMobile && "ml-0"
-      )}>
-        {/* This div makes space for the sidebar */}
-      </div>
+        expanded ? "ml-[240px]" : "ml-[70px]"
+      )} />
     </>
   );
 }
