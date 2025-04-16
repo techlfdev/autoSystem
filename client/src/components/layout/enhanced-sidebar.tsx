@@ -17,7 +17,8 @@ import {
   ChevronRight,
   ShieldCheck,
   Crown,
-  Timer
+  Timer,
+  Menu
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
