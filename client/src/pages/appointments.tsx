@@ -37,18 +37,8 @@ export default function AppointmentsPage() {
   const [isNewAppointmentOpen, setIsNewAppointmentOpen] = useState(false);
   const { toast } = useToast();
 
-  const handleDateSelect = (date: Date) => {
-    setSelectedDate(date);
-    setIsNewAppointmentOpen(true);
-  };
-
-  const handleNewAppointment = () => {
-    setSelectedDate(null);
-    setIsNewAppointmentOpen(true);
-  };
-
-  const handleDayClick = (date: Date) => {
-    setSelectedDate(date);
+  const handleNewAppointment = (selectedDate?: Date) => {
+    setSelectedDate(selectedDate || null);
     setIsNewAppointmentOpen(true);
   };
 
@@ -91,7 +81,7 @@ export default function AppointmentsPage() {
           <div className="flex-1">
             <FullScreenCalendar 
               data={dummyEvents}
-              onDateSelect={handleDayClick}
+              onDateSelect={handleNewAppointment}
               onNewAppointment={handleNewAppointment}
             />
           </div>
