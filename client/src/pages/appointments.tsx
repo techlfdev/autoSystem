@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { EnhancedDashboardLayout } from '@/components/layout/enhanced-dashboard-layout';
 import { AppointmentDialog } from '@/components/appointments/appointment-dialog';
 import { AppointmentFilters } from '@/components/appointments/appointment-filters';
+import { AppointmentList } from '@/components/appointments/appointment-list';
 import { FullScreenCalendar } from '@/components/ui/fullscreen-calendar';
 import { Card } from '@/components/ui/card';
 import { useToast } from "@/hooks/use-toast";
@@ -81,6 +82,47 @@ export default function AppointmentsPage() {
               data={dummyEvents}
               onDateSelect={handleNewAppointment}
               onNewAppointment={handleNewAppointment}
+            />
+            
+            <AppointmentList
+              appointments={[
+                {
+                  id: 1,
+                  clientName: "João Silva",
+                  phone: "(11) 98765-4321",
+                  serviceType: "Troca de Óleo",
+                  vehicle: "Honda Civic - ABC-1234",
+                  mechanic: "Pedro Santos",
+                  box: "Box 1",
+                  datetime: "2024-01-15T10:00:00",
+                  duration: "1 hora",
+                  status: "SCHEDULED"
+                },
+                {
+                  id: 2,
+                  clientName: "Maria Oliveira",
+                  phone: "(11) 91234-5678",
+                  serviceType: "Revisão Completa",
+                  vehicle: "Toyota Corolla - XYZ-9876",
+                  mechanic: "Carlos Ferreira",
+                  box: "Box 2",
+                  datetime: "2024-01-15T14:30:00",
+                  duration: "2 horas",
+                  status: "COMPLETED"
+                }
+              ]}
+              onEditAppointment={(appointment) => {
+                console.log('Editar agendamento:', appointment);
+                setSelectedDate(new Date(appointment.datetime));
+                setIsNewAppointmentOpen(true);
+              }}
+              onDeleteAppointment={(id) => {
+                console.log('Excluir agendamento:', id);
+                toast({
+                  title: "Agendamento excluído",
+                  description: "O agendamento foi removido com sucesso.",
+                });
+              }}
             />
           </div>
         </div>
