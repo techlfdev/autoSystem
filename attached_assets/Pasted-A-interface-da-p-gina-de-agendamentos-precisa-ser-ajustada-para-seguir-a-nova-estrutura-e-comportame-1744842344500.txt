@@ -1,0 +1,18 @@
+A interface da página de agendamentos precisa ser ajustada para seguir a nova estrutura e comportamento desejado. Faça as seguintes modificações imediatamente, garantindo que todos os elementos estejam visualmente integrados, semanticamente corretos e funcionalmente operacionais, sem gerar erros de runtime:
+
+Remova dois dos três filtros atuais, mantendo apenas o filtro de Status do Agendamento. Esse filtro deve estar posicionado à direita do campo de pesquisa, dentro do mesmo container flexível, alinhado horizontalmente com espaçamento adequado.
+
+Remova o botão "Mais Filtros" que está ao lado dos filtros. Não deve haver botões extras à esquerda. Mantenha apenas um botão funcional e visualmente destacado com o texto "Novo Agendamento", posicionado ao lado dos filtros/pesquisa ou flutuando à direita superior do calendário (você escolhe a abordagem visual mais consistente com o layout).
+
+O botão "Today" deve ser substituído por "Este mês", exibindo o nome do mês atual (ex: Abril). Ao clicar nas setas de navegação para esquerda e direita, o nome exibido no botão deve ser atualizado dinamicamente para refletir o mês anterior ou seguinte, respectivamente (ex: "Março", "Maio", etc.).
+Essa lógica pode ser feita com base no currentMonth já disponível no FullScreenCalendar, usando format(currentMonthDate, "MMMM").
+
+Todos os botões da página devem estar 100% funcionais. Isso inclui o botão "Novo Agendamento", os botões de navegação de mês e o botão de pesquisa. Nenhum erro de referência ou função indefinida deve existir. Utilize fallback functions seguras se necessário (() => {}).
+
+Ao clicar em qualquer dia no calendário, o sistema deve automaticamente abrir o modal de Novo Agendamento, com o campo de data já preenchido com o dia clicado. Isso significa que o componente do calendário deve disparar a função onNewAppointment(date: Date) com o day correto, e o modal deve receber essa data via prop.
+
+Garanta que o modal de agendamento esteja integrado com os dados necessários e tenha os campos mínimos: Nome do Cliente, Telefone, Tipo de Serviço, Mecânico, Horário, Box e Observações. A data selecionada no clique já deve vir preenchida no campo de data.
+
+Finalize essas modificações garantindo que não haja nenhum erro de build, importação, ou falta de dependência, e que a página esteja funcional e navegável no preview do Replit.
+
+A prioridade é clareza visual, fluidez de interação e estabilidade total da aplicação. Execute os ajustes com atenção à arquitetura atual do projeto e respeitando a organização dos componentes já criados.
