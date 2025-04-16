@@ -10,6 +10,7 @@ import { PageLoader } from "@/components/ui/page-loader";
 const Dashboard = lazy(() => import("@/pages/dashboard"));
 const Clients = lazy(() => import("@/pages/clients"));
 const Appointments = lazy(() => import("@/pages/appointments"));
+const ServiceOrders = lazy(() => import("@/pages/service-orders"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 function Router() {
@@ -19,6 +20,7 @@ function Router() {
         <Route path="/" component={Dashboard} />
         <Route path="/clientes" component={Clients} />
         <Route path="/agendamentos" component={Appointments} />
+        <Route path="/ordens" component={ServiceOrders} />
         <Route component={NotFound} />
       </Switch>
     </Suspense>
