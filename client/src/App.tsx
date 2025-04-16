@@ -9,6 +9,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Dashboard} />
+      <Route path="/clientes" component={lazy(() => import('@/pages/clients'))} />
       <Route component={NotFound} />
     </Switch>
   );
