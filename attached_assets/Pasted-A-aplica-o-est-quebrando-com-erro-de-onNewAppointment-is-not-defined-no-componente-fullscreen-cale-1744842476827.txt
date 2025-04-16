@@ -1,0 +1,41 @@
+A aplicação está quebrando com erro de onNewAppointment is not defined no componente fullscreen-calendar.tsx. Esse erro ocorre porque há uma chamada direta a onNewAppointment dentro do botão "Novo Agendamento", mas essa função não está sendo recebida como prop nem foi declarada no componente.
+
+Resolva esse problema agora da forma correta. Siga os passos abaixo:
+
+No componente FullScreenCalendar, adicione a prop onNewAppointment?: (selectedDate?: Date) => void na interface FullScreenCalendarProps. Isso permitirá que o componente receba essa função de forma segura.
+
+Em todos os locais onde onNewAppointment está sendo usado no JSX (ex: onClick={onNewAppointment} ou onClick={() => onNewAppointment(day)}), verifique antes se a função existe, ou use fallback seguro para evitar runtime error:
+
+tsx
+Copiar
+Editar
+onClick={() => onNewAppointment?.()}
+ou
+
+tsx
+Copiar
+Editar
+onClick={() => onNewAppointment?.(selectedDate)}
+No componente pai, onde o FullScreenCalendar está sendo usado (como appointments.tsx), defina a função onNewAppointment com o comportamento esperado: abrir o modal de novo agendamento e, se fornecido, preencher o campo de data com o selectedDate.
+
+Exemplo básico:
+
+tsx
+Copiar
+Editar
+const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+const [open, setOpen] = useState(false)
+
+const handleNewAppointment = (date?: Date) => {
+  setSelectedDate(date || null)
+  setOpen(true)
+}
+
+<FullScreenCalendar onNewAppointment={handleNewAppointment} />
+O modal (AppointmentDialog) deve receber selectedDate como prop e preencher o campo de data automaticamente.
+
+Teste clicando tanto no botão "Novo Agendamento" quanto em uma data do calendário, e valide que o modal abre corretamente e sem erros.
+
+Garanta que não exista nenhuma referência à função onNewAppointment sem ela estar definida ou passada como prop, em nenhuma parte do código.
+
+A prioridade agora é restaurar a estabilidade da aplicação e garantir que o fluxo de criação de agendamento funcione de forma completa, tanto por botão quanto por clique direto no calendário.
