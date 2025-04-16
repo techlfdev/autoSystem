@@ -46,7 +46,7 @@ export function EnhancedDashboardLayout({
   };
   
   return (
-    <div className="flex min-h-screen bg-background">
+    <div className="flex min-h-screen bg-white">
       {/* Sidebar */}
       <EnhancedSidebar user={user} />
       
@@ -70,7 +70,7 @@ export function EnhancedDashboardLayout({
                 <span>Você tem {todayAppointmentsCount} agendamento{todayAppointmentsCount !== 1 ? 's' : ''} hoje.</span>
               )}
             </h1>
-            <p className="text-muted-foreground">
+            <p className="text-gray-500">
               {todayAppointmentsCount > 0 
                 ? "Confira o Dashboard para uma visão geral de hoje."
                 : "Não há agendamentos para hoje. Aproveite para colocar as tarefas em dia."}

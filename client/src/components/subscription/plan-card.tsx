@@ -46,13 +46,13 @@ export function PlanCard({
   const bgStyle = React.useMemo(() => {
     switch (plan) {
       case 'gratuito':
-        return 'bg-gray-100 dark:bg-gray-800';
+        return 'bg-gray-100';
       case 'intermediario':
-        return 'bg-blue-50 dark:bg-blue-950/30 shadow-[0_0_10px_rgba(59,130,246,0.2)] dark:shadow-[0_0_15px_rgba(59,130,246,0.15)]';
+        return 'bg-blue-50 shadow-[0_0_10px_rgba(59,130,246,0.2)]';
       case 'avancado':
-        return 'bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/20 shadow-[0_0_15px_rgba(245,158,11,0.15)] dark:shadow-[0_0_15px_rgba(245,158,11,0.1)]';
+        return 'bg-gradient-to-r from-amber-50 to-orange-50 shadow-[0_0_15px_rgba(245,158,11,0.15)]';
       default:
-        return 'bg-gray-100 dark:bg-gray-800';
+        return 'bg-gray-100';
     }
   }, [plan]);
   
@@ -62,15 +62,15 @@ export function PlanCard({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
       className={cn(
-        "mt-2 rounded-xl p-3 flex items-center gap-3 border border-border",
+        "mt-2 rounded-xl p-3 flex items-center gap-3 border border-gray-200",
         bgStyle,
         className
       )}
     >
       <div className={cn(
-        "p-2 rounded-lg bg-background shadow flex items-center justify-center",
-        plan === 'intermediario' && "bg-blue-100 dark:bg-blue-900/40",
-        plan === 'avancado' && "bg-amber-100 dark:bg-amber-900/40"
+        "p-2 rounded-lg bg-white shadow flex items-center justify-center",
+        plan === 'intermediario' && "bg-blue-100",
+        plan === 'avancado' && "bg-amber-100"
       )}>
         {PlanIcon}
       </div>
@@ -82,7 +82,7 @@ export function PlanCard({
           {plan === 'avancado' && "Plano Avançado"}
         </span>
         
-        <span className="text-xs text-muted-foreground mt-1">
+        <span className="text-xs text-gray-500 mt-1">
           {plan === 'gratuito' 
             ? remainingDays > 0 
               ? `Faltam ${remainingDays} dia${remainingDays !== 1 ? 's' : ''}` 
@@ -91,9 +91,9 @@ export function PlanCard({
         </span>
         
         {plan === 'gratuito' && remainingDays > 0 && (
-          <div className="mt-1.5 h-1.5 w-full bg-muted-foreground/20 rounded-full overflow-hidden">
+          <div className="mt-1.5 h-1.5 w-full bg-gray-200 rounded-full overflow-hidden">
             <motion.div
-              className="h-full bg-primary rounded-full"
+              className="h-full bg-blue-600 rounded-full"
               initial={{ width: 0 }}
               animate={{ width: `${(remainingDays / 7) * 100}%` }}
               transition={{ duration: 0.6, ease: "easeOut" }}
