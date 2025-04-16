@@ -38,6 +38,12 @@
   }
 }
 
+@layer utilities {
+  .custom-scrollbar {
+    @apply scrollbar-thin scrollbar-track-transparent scrollbar-thumb-neutral-400 hover:scrollbar-thumb-neutral-500;
+  }
+}
+
 @layer base {
   :root {
     --radius: 0.5rem;
