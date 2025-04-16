@@ -20,7 +20,7 @@
   }
 
   body {
-    @apply font-sans antialiased bg-background text-foreground;
+    @apply font-sans tracking-tighter antialiased bg-white text-foreground;
   }
   
   /* Make h-svh work like h-screen but with svh units */

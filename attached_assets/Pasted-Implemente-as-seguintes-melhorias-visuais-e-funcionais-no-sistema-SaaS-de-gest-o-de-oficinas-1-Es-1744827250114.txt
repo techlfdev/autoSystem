@@ -1,0 +1,88 @@
+Implemente as seguintes melhorias visuais e funcionais no sistema SaaS de gestão de oficinas:
+
+1. Estilo Global
+Configure o tema global do sistema para utilizar a fonte Manrope em todas as páginas e componentes. Aplique um letter-spacing levemente negativo (ex: tracking-tight ou tracking-[-0.015em]) para dar um aspecto moderno e compacto ao texto.
+
+No tailwind.config.ts, adicione Manrope como fonte primária:
+
+ts
+Copiar
+Editar
+theme: {
+  extend: {
+    fontFamily: {
+      sans: ["Manrope", "sans-serif"],
+    },
+    letterSpacing: {
+      tighter: "-0.015em",
+    },
+  }
+}
+E garanta que o globals.css tenha:
+
+css
+Copiar
+Editar
+body {
+  @apply font-sans tracking-tighter bg-white text-black;
+}
+Importe a fonte no HTML ou via Tailwind Plugin (se necessário via Google Fonts: https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap).
+
+2. Plano de Assinatura na Sidebar
+Na parte inferior da sidebar (junto ao usuário logado), adicione um card animado que exiba o plano atual de assinatura do usuário. O card deve ter design moderno, com motion.div do framer-motion para transições suaves ao entrar ou mudar de estado (por exemplo, mudar de plano).
+
+Comportamento:
+Plano Gratuito (7 dias)
+Ícone padrão, cor neutra (#CBD5E1 ou similar), e exibir:
+"Plano Gratuito" e "Faltam X dias" com barra de progresso animada mostrando o tempo restante.
+
+Plano Intermediário
+Ícone especial (ex: ShieldCheck do lucide-react), cor azul ou roxa com leve glow. Texto:
+"Plano Intermediário" e "Assinatura ativa".
+
+Plano Avançado
+Ícone especial (ex: Crown ou Sparkles), cor dourada, com efeito de gradiente suave. Texto:
+"Plano Avançado" e "Assinatura ativa".
+
+Exemplo JSX do componente:
+tsx
+Copiar
+Editar
+<motion.div
+  initial={{ opacity: 0, y: 10 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.4 }}
+  className="mt-2 rounded-xl bg-muted p-3 flex items-center gap-3 border border-border"
+>
+  <div className="p-2 rounded-lg bg-background shadow">
+    {plano === "gratuito" ? <TimerIcon /> : plano === "intermediario" ? <ShieldCheck /> : <Crown />}
+  </div>
+  <div className="flex flex-col">
+    <span className="text-sm font-semibold leading-none">
+      {plano === "gratuito" && "Plano Gratuito"}
+      {plano === "intermediario" && "Plano Intermediário"}
+      {plano === "avancado" && "Plano Avançado"}
+    </span>
+    <span className="text-xs text-muted-foreground">
+      {plano === "gratuito" ? `Faltam ${diasRestantes} dias` : "Assinatura ativa"}
+    </span>
+    {plano === "gratuito" && (
+      <div className="mt-1 h-1.5 w-full bg-muted-foreground/20 rounded-full overflow-hidden">
+        <motion.div
+          className="h-full bg-primary rounded-full"
+          initial={{ width: 0 }}
+          animate={{ width: `${(diasRestantes / 7) * 100}%` }}
+          transition={{ duration: 0.6 }}
+        />
+      </div>
+    )}
+  </div>
+</motion.div>
+💡 A variável plano pode vir de um hook de contexto de usuário (como useAuth()), e diasRestantes calculado com dayjs() comparando dataCadastro + 7 dias com a data atual.
+
+3. Cor de fundo principal
+Toda a aplicação, incluindo o dashboard principal e páginas internas, deve adotar fundo branco puro #FFFFFF. Os elementos internos (cards, inputs, modais) devem ter contraste sutil com bg-muted, border-border, shadow-sm e rounded-xl.
+
+4. Animações suaves e navegação fluida
+Aplique framer-motion em todas as seções que entram em tela (dashboard, cards de estatísticas, navegação) com animações baseadas em opacity, y ou scale, para criar uma sensação fluida e moderna.
+
