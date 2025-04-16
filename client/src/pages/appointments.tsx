@@ -1,8 +1,13 @@
+
 import { useState } from 'react';
 import { EnhancedDashboardLayout } from '@/components/layout/enhanced-dashboard-layout';
 import { AppointmentDialog } from '@/components/appointments/appointment-dialog';
+import { AppointmentFilters } from '@/components/appointments/appointment-filters';
 import { FullScreenCalendar } from '@/components/ui/fullscreen-calendar';
+import { Card } from '@/components/ui/card';
+import { useToast } from '@/components/ui/use-toast';
 
+// Mock data and types - replace with API integration later
 const dummyEvents = [
   {
     day: new Date("2024-01-02"),
@@ -12,44 +17,87 @@ const dummyEvents = [
         name: "Troca de Óleo - João Silva",
         time: "10:00",
         datetime: "2024-01-02T10:00",
-      },
-      {
-        id: 2,
-        name: "Revisão Geral - Maria Santos",
-        time: "14:00",
-        datetime: "2024-01-02T14:00",
-      },
-    ],
-  },
-  {
-    day: new Date("2024-01-07"),
-    events: [
-      {
-        id: 3,
-        name: "Alinhamento - Pedro Oliveira",
-        time: "14:00",
-        datetime: "2024-01-07T14:00",
-      },
-      {
-        id: 4,
-        name: "Troca de Pneus - Ana Costa",
-        time: "11:00",
-        datetime: "2024-01-07T11:00",
+        status: "SCHEDULED",
+        mechanic: "Pedro Santos",
+        service: "Troca de Óleo",
+        box: "Box 1"
       },
     ],
   },
 ];
 
+const metrics = {
+  weeklyAppointments: 24,
+  completionRate: 92,
+  topService: "Troca de Óleo",
+  topMechanic: "Pedro Santos"
+};
+
 export default function AppointmentsPage() {
-  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [isNewAppointmentOpen, setIsNewAppointmentOpen] = useState(false);
+  const { toast } = useToast();
+
+  const handleDateSelect = (date: Date) => {
+    setSelectedDate(date);
+    setIsNewAppointmentOpen(true);
+  };
+
+  const handleNewAppointment = () => {
+    setSelectedDate(null);
+    setIsNewAppointmentOpen(true);
+  };
+
+  const handleAppointmentCreated = () => {
+    setIsNewAppointmentOpen(false);
+    toast({
+      title: "Agendamento criado",
+      description: "Notificação enviada ao cliente via WhatsApp.",
+    });
+    // Simulated notification log
+    console.log("📱 WhatsApp notification sent to client");
+  };
 
   return (
     <EnhancedDashboardLayout>
-      <div className="flex h-full flex-col">
-        <FullScreenCalendar data={dummyEvents} />
+      <div className="flex h-full flex-col gap-4">
+        {/* Metrics Section */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
+          <Card className="p-4">
+            <h3 className="text-sm font-medium text-muted-foreground">Agendamentos Semana</h3>
+            <p className="mt-2 text-2xl font-bold">{metrics.weeklyAppointments}</p>
+          </Card>
+          <Card className="p-4">
+            <h3 className="text-sm font-medium text-muted-foreground">Taxa de Conclusão</h3>
+            <p className="mt-2 text-2xl font-bold">{metrics.completionRate}%</p>
+          </Card>
+          <Card className="p-4">
+            <h3 className="text-sm font-medium text-muted-foreground">Serviço Mais Agendado</h3>
+            <p className="mt-2 text-2xl font-bold">{metrics.topService}</p>
+          </Card>
+          <Card className="p-4">
+            <h3 className="text-sm font-medium text-muted-foreground">Mecânico Mais Alocado</h3>
+            <p className="mt-2 text-2xl font-bold">{metrics.topMechanic}</p>
+          </Card>
+        </div>
+
+        <AppointmentFilters />
+        
+        <div className="flex flex-1 gap-4">
+          <div className="flex-1">
+            <FullScreenCalendar 
+              data={dummyEvents}
+              onDateSelect={handleDateSelect}
+              onNewAppointment={handleNewAppointment}
+            />
+          </div>
+        </div>
+
         <AppointmentDialog
-          appointment={selectedEvent}
-          onClose={() => setSelectedEvent(null)}
+          open={isNewAppointmentOpen}
+          onOpenChange={setIsNewAppointmentOpen}
+          selectedDate={selectedDate}
+          onAppointmentCreated={handleAppointmentCreated}
         />
       </div>
     </EnhancedDashboardLayout>
