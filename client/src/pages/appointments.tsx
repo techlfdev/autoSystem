@@ -89,7 +89,10 @@ export default function AppointmentsPage() {
 
         <AppointmentDialog
           open={isNewAppointmentOpen}
-          onOpenChange={setIsNewAppointmentOpen}
+          onOpenChange={(open) => {
+            setIsNewAppointmentOpen(open);
+            if (!open) setSelectedDate(null);
+          }}
           selectedDate={selectedDate}
           onAppointmentCreated={handleAppointmentCreated}
         />

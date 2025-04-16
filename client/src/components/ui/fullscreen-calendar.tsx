@@ -57,7 +57,7 @@ const colStartClasses = [
   "col-start-7",
 ]
 
-export function FullScreenCalendar({ data }: FullScreenCalendarProps) {
+export function FullScreenCalendar({ data, onDateSelect, onNewAppointment }: FullScreenCalendarProps) {
   const today = startOfToday()
   const [selectedDay, setSelectedDay] = React.useState(today)
   const [currentMonth, setCurrentMonth] = React.useState(
@@ -153,7 +153,7 @@ export function FullScreenCalendar({ data }: FullScreenCalendarProps) {
 
           <Button 
             className="w-full gap-2 md:w-auto"
-            onClick={() => onNewAppointment?.()}
+            onClick={() => onNewAppointment?.(selectedDay)}
           >
             <PlusCircle size={16} strokeWidth={2} aria-hidden="true" />
             <span>Novo Agendamento</span>
