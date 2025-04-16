@@ -9,6 +9,7 @@ import { PageLoader } from "@/components/ui/page-loader";
 // Lazy load components
 const Dashboard = lazy(() => import("@/pages/dashboard"));
 const Clients = lazy(() => import("@/pages/clients"));
+const Appointments = lazy(() => import("@/pages/appointments"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 
 function Router() {
@@ -17,6 +18,7 @@ function Router() {
       <Switch>
         <Route path="/" component={Dashboard} />
         <Route path="/clientes" component={Clients} />
+        <Route path="/agendamentos" component={Appointments} />
         <Route component={NotFound} />
       </Switch>
     </Suspense>
