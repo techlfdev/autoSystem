@@ -8,7 +8,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sh
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Pencil, Trash2, Eye, Clock, Upload, SendHorizontal, FileText, Camera } from 'lucide-react';
+import { Pencil, Trash2, Eye, Clock, Upload, SendHorizontal, FileText, Camera, Download } from 'lucide-react';
 import { Timeline } from '@/components/service-orders/timeline';
 import { ServiceOrderDetails } from '@/components/service-orders/service-order-details';
 import { ServiceStatus, type ServiceOrder } from '@/types/service-order';
@@ -21,9 +21,18 @@ interface ServiceOrderListProps {
   onStatusChange: (orderId: number, status: ServiceStatus) => void;
   onDelete: (id: number) => void;
   onSendWhatsApp: (orderId: number, type: 'status' | 'budget' | 'completion') => void;
+  onGeneratePDF: (orderId: number) => void;
+  onUploadFiles: (orderId: number, files: FileList) => void;
 }
 
-export function ServiceOrderList({ orders = [], onStatusChange, onDelete, onSendWhatsApp }: ServiceOrderListProps) {
+export function ServiceOrderList({ 
+  orders = [], 
+  onStatusChange, 
+  onDelete, 
+  onSendWhatsApp,
+  onGeneratePDF,
+  onUploadFiles
+}: ServiceOrderListProps) {
   const [selectedOrder, setSelectedOrder] = useState<ServiceOrder | null>(null);
   const [sheetOpen, setSheetOpen] = useState(false);
 
@@ -51,6 +60,12 @@ export function ServiceOrderList({ orders = [], onStatusChange, onDelete, onSend
   const handleViewOrder = (order: ServiceOrder) => {
     setSelectedOrder(order);
     setSheetOpen(true);
+  };
+
+  const handleFileUpload = (orderId: number, event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      onUploadFiles(orderId, event.target.files);
+    }
   };
 
   return (
@@ -138,6 +153,51 @@ export function ServiceOrderList({ orders = [], onStatusChange, onDelete, onSend
                   <TabsContent value="details">
                     <ServiceOrderDetails order={selectedOrder} />
                   </TabsContent>
+                  <TabsContent value="checklist">
+                    <div className="space-y-4">
+                      {Object.entries(selectedOrder.checklist || {}).map(([item, checked]) => (
+                        <div key={item} className="flex items-center gap-2">
+                          <input
+                            type="checkbox"
+                            checked={checked}
+                            onChange={() => {}}
+                            className="h-4 w-4"
+                          />
+                          <span>{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </TabsContent>
+                  <TabsContent value="photos">
+                    <div className="space-y-4">
+                      <div className="grid grid-cols-2 gap-4">
+                        {selectedOrder.photos?.map((photo, index) => (
+                          <img
+                            key={index}
+                            src={photo.url}
+                            alt={`Foto ${index + 1}`}
+                            className="rounded-lg"
+                          />
+                        ))}
+                      </div>
+                      <div>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          multiple
+                          onChange={(e) => handleFileUpload(selectedOrder.id, e)}
+                          className="hidden"
+                          id="photo-upload"
+                        />
+                        <Button asChild>
+                          <label htmlFor="photo-upload">
+                            <Camera className="h-4 w-4 mr-2" />
+                            Adicionar Fotos
+                          </label>
+                        </Button>
+                      </div>
+                    </div>
+                  </TabsContent>
                   <TabsContent value="timeline">
                     <Timeline events={selectedOrder.timeline} />
                   </TabsContent>
@@ -150,9 +210,13 @@ export function ServiceOrderList({ orders = [], onStatusChange, onDelete, onSend
               <SendHorizontal className="h-4 w-4 mr-2" />
               Enviar Status
             </Button>
-            <Button onClick={() => onSendWhatsApp(selectedOrder?.id!, 'budget')}>
+            <Button onClick={() => onGeneratePDF(selectedOrder?.id!)}>
               <FileText className="h-4 w-4 mr-2" />
               Gerar PDF
+            </Button>
+            <Button onClick={() => onSendWhatsApp(selectedOrder?.id!, 'budget')}>
+              <Download className="h-4 w-4 mr-2" />
+              Enviar Orçamento
             </Button>
           </div>
         </SheetContent>

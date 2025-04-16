@@ -40,7 +40,8 @@ export default function ServiceOrdersPage() {
           timestamp: new Date().toISOString(),
           user: { name: 'Pedro Santos' }
         }
-      ]
+      ],
+      photos: []
     }
   ]);
   
@@ -60,6 +61,20 @@ export default function ServiceOrdersPage() {
     });
   };
 
+  const handleGeneratePDF = (orderId: number) => {
+    toast({
+      title: "PDF gerado",
+      description: "O documento foi gerado e está pronto para download.",
+    });
+  };
+
+  const handleUploadFiles = (orderId: number, files: FileList) => {
+    toast({
+      title: "Arquivos enviados",
+      description: `${files.length} arquivo(s) adicionado(s) à OS.`,
+    });
+  };
+
   return (
     <EnhancedDashboardLayout>
       <div className="space-y-4">
@@ -74,6 +89,8 @@ export default function ServiceOrdersPage() {
             });
           }}
           onSendWhatsApp={handleSendWhatsApp}
+          onGeneratePDF={handleGeneratePDF}
+          onUploadFiles={handleUploadFiles}
         />
       </div>
     </EnhancedDashboardLayout>
