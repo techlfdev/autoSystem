@@ -1,0 +1,29 @@
+A aplicação está quebrando no componente fullscreen-calendar.tsx, especificamente na linha onde o botão de “Novo Agendamento” tenta chamar a função onNewAppointment. O erro é claro: onNewAppointment is not defined. Isso indica que a função está sendo usada dentro do botão, mas não foi declarada nem passada como prop.
+
+Resolva esse erro agora da forma correta. A função onNewAppointment deve ser uma callback prop esperada pelo componente FullScreenCalendar. Isso significa que você precisa:
+
+Declarar a prop onNewAppointment?: () => void dentro da interface FullScreenCalendarProps.
+
+Fazer com que o botão de criação de agendamento chame essa prop normalmente via onClick={onNewAppointment} — mas apenas se ela estiver definida. Use fallback seguro (onClick={onNewAppointment ?? (() => {})}) se necessário.
+
+No componente pai onde o FullScreenCalendar está sendo chamado (provavelmente appointments.tsx), defina a função onNewAppointment e passe como prop. Essa função deve abrir um modal de agendamento já existente ou um novo componente AppointmentDialog, preparado para receber dados via props.
+
+Altere o texto do botão de “New Event” para “Novo Agendamento” e garanta que o clique funcione corretamente.
+
+Como melhoria, implemente a mesma lógica ao clicar em qualquer dia do calendário. Ou seja, clique no dia deve acionar a mesma função onNewAppointment, mas passando o dia clicado como parâmetro. A interface da prop deve então mudar para:
+onNewAppointment?: (selectedDate?: Date) => void
+
+Dentro do modal, o campo de data já deve vir preenchido com o selectedDate se for fornecido.
+
+A prioridade agora é garantir que:
+
+O erro de onNewAppointment is not defined seja resolvido.
+
+A função seja corretamente conectada entre componente pai e filho.
+
+O modal de criação de agendamento abra e funcione com data preenchida ao clicar no botão ou no calendário.
+
+O botão mostre “Novo Agendamento” e esteja visível e funcional.
+
+A aplicação não pode mais quebrar por referência ausente. Execute essas correções com segurança, modularidade e mantendo o padrão do projeto. Depois disso, valide no navegador se a criação de agendamento está operando sem falhas.
+
