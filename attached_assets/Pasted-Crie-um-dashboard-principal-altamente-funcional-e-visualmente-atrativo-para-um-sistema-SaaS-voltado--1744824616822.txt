@@ -1,0 +1,16 @@
+Crie um dashboard principal altamente funcional e visualmente atrativo para um sistema SaaS voltado à gestão de oficinas mecânicas. Esse dashboard será a tela inicial acessada por donos e funcionários da oficina, e deve oferecer uma visão abrangente, clara e estratégica das operações do dia a dia. O objetivo é proporcionar uma experiência fluida, informativa e objetiva, facilitando a tomada de decisões rápidas com base em dados operacionais e financeiros em tempo real.
+
+O layout do dashboard deve apresentar uma visão geral dos agendamentos do dia e da semana, com destaque visual para os horários de maior movimentação e sinalização clara dos serviços agendados e seus respectivos responsáveis. Use elementos visuais como cards, gráficos de barras, tabelas dinâmicas e alertas contextuais. A experiência precisa ser responsiva e adaptável a diversos tamanhos de tela, com navegação fluida entre as seções.
+
+Além disso, inclua uma área que exiba todos os serviços em andamento, categorizados por status (em atendimento, aguardando peça, finalizado, aguardando aprovação, etc.), permitindo que o usuário visualize rapidamente quais ordens de serviço estão em progresso e onde podem existir gargalos.
+
+Outra seção fundamental é a de faturamento acumulado. Ela deve exibir de forma clara o total faturado no mês atual e, se possível, uma comparação com o mês anterior ou com metas preestabelecidas. É desejável que esse componente traga insights de crescimento ou queda percentual, bem como uma estimativa do ticket médio por cliente com base nos serviços prestados no período.
+
+O sistema também deve emitir alertas inteligentes e automáticos, com destaques visuais, para situações críticas ou que exigem atenção imediata, como: níveis baixos de estoque de insumos ou peças mais utilizadas, veículos que estão há muito tempo pendentes no sistema (sem aprovação, pagamento ou retirada), e revisões programadas ou recorrentes que ainda não foram executadas.
+
+A estética visual deve seguir um design moderno e funcional, com tons escuros predominantes (modo escuro), ícones intuitivos, tipografia legível e espaçamento adequado para que a navegação seja agradável. Utilize microanimações sutis para indicar carregamentos, transições e atualizações em tempo real (ex: quando uma ordem muda de status ou um novo agendamento é feito).
+
+A arquitetura do sistema deve estar preparada para atualizações e integrações futuras, como notificações push, webhooks e integração com o WhatsApp via API. Implemente boas práticas de UX/UI, seguindo princípios de acessibilidade e usabilidade. O código deve ser escalável, organizado em componentes reutilizáveis e, preferencialmente, estruturado com tecnologias modernas como React, TailwindCSS, TypeScript e algum sistema de charts como Recharts ou Chart.js.
+
+Esse dashboard será o "cérebro operacional" da oficina, e sua função é permitir que o gestor tenha controle completo e visão total de tudo que está acontecendo, em tempo real.
+
