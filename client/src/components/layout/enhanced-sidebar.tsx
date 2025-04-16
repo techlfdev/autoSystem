@@ -14,7 +14,10 @@ import {
   LogOut,
   Car,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  ShieldCheck,
+  Crown,
+  Timer
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -23,6 +26,7 @@ import { Separator } from '@/components/ui/separator';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { PlanCard, SubscriptionPlan } from '@/components/subscription/plan-card';
 
 interface MenuItem {
   icon: React.ReactNode;
@@ -60,6 +64,10 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const hoverTimerRef = useRef<NodeJS.Timeout | null>(null);
+  
+  // Current subscription plan - in a real app, this would come from a user context or API
+  const subscriptionPlan: SubscriptionPlan = 'intermediario';
+  const registrationDate = new Date('2023-04-10');
 
   // Define menu sections
   const menuSections: MenuSection[] = [
@@ -263,6 +271,7 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
 
       {/* User Profile Footer */}
       <div className="border-t border-gray-700/50 p-3">
+        {/* User Profile */}
         <motion.div 
           className={cn(
             "flex items-center p-2 rounded-xl hover:bg-gray-800/60 transition-colors cursor-pointer",
@@ -302,6 +311,30 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
             </motion.div>
           )}
         </motion.div>
+        
+        {/* Subscription Plan Card */}
+        {expanded ? (
+          <PlanCard 
+            plan={subscriptionPlan} 
+            registrationDate={registrationDate} 
+            className="mx-1 mt-3"
+          />
+        ) : (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div className="flex justify-center mt-3 cursor-help">
+                {subscriptionPlan === 'gratuito' && <Timer className="h-5 w-5 text-gray-400" />}
+                {subscriptionPlan === 'intermediario' && <ShieldCheck className="h-5 w-5 text-blue-500" />}
+                {subscriptionPlan === 'avancado' && <Crown className="h-5 w-5 text-amber-500" />}
+              </div>
+            </TooltipTrigger>
+            <TooltipContent side="right">
+              {subscriptionPlan === 'gratuito' ? 'Plano Gratuito' : 
+               subscriptionPlan === 'intermediario' ? 'Plano Intermediário' : 
+               'Plano Avançado'}
+            </TooltipContent>
+          </Tooltip>
+        )}
       </div>
     </div>
   );
