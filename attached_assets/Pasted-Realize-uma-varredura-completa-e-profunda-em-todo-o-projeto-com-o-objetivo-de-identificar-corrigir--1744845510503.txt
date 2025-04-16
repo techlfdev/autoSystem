@@ -1,0 +1,48 @@
+Realize uma varredura completa e profunda em todo o projeto com o objetivo de identificar, corrigir e prevenir absolutamente todos os erros, conflitos, falhas de importação e quebras em tempo de execução, como o erro crítico atual relacionado à importação incorreta do ícone Tool da biblioteca lucide-react.
+
+Esse erro está ocorrendo devido à tentativa de importar um componente que não existe ou não é exportado pela versão instalada da biblioteca, conforme indicado pela mensagem:
+
+javascript
+Copiar
+Editar
+The requested module 'lucide-react.js' does not provide an export named 'Tool'
+Apenas resolver esse erro pontualmente não é suficiente. É necessário aplicar uma correção definitiva e sistêmica. Isso significa que todas as dependências devem ser auditadas, todos os componentes externos revisados, e cada importação deve ser validada com base nas exportações reais das bibliotecas utilizadas. O sistema precisa ser robusto, resiliente e preparado para produção. Nenhum erro desse tipo pode continuar ocorrendo ou aparecer futuramente.
+
+Exijo que você:
+
+Analise todas as importações da biblioteca lucide-react, e substitua qualquer ícone inexistente por um ícone válido presente na versão instalada. Por exemplo, se o ícone Tool não existe, substitua imediatamente por Wrench, Settings, Hammer, Cog, ou qualquer equivalente disponível e documentado.
+
+Garanta que a versão instalada da lucide-react esteja atualizada e compatível com os ícones utilizados no projeto. Atualize, se necessário, executando:
+
+bash
+Copiar
+Editar
+npm install lucide-react@latest
+Revise todo o projeto em busca de qualquer outro tipo de importação quebrada ou inválida. Isso inclui:
+
+Módulos inexistentes
+
+Importações relativas incorretas
+
+Componentes renomeados após refatorações
+
+Imports de utilitários não exportados
+
+Resolução de alias mal configurada
+
+Limpe o ambiente completamente para eliminar artefatos quebrados. Execute:
+
+bash
+Copiar
+Editar
+rm -rf node_modules .vite dist package-lock.json
+npm install
+Corrija quaisquer problemas em tempo de build e runtime identificados durante esse processo. Teste cada rota, cada componente e cada funcionalidade. O sistema não pode exibir nenhuma tela de erro do Vite, nenhum overlay de falha, nenhum console vermelho no browser.
+
+Configure o ambiente para prevenir esse tipo de erro em tempo de desenvolvimento, com ferramentas de linting, validação de imports e verificação de exportações automatizadas.
+
+Garanta que nenhuma futura importação quebre a aplicação. Para isso, você pode incluir validações de fallback ou tratamento de exceções nos pontos mais sensíveis, especialmente em componentes de layout, navegação, ícones e integrações externas.
+
+Essa correção precisa ser cirúrgica, definitiva e confiável. Esse tipo de erro não pode se repetir em nenhuma etapa do sistema, nem em desenvolvimento, nem em staging, nem em produção. O projeto inteiro deve ser estável, limpo, funcional e confiável.
+
+Corrija agora e valide cuidadosamente todos os módulos.
