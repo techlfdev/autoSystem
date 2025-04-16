@@ -1,0 +1,50 @@
+Solicito a personalização completa das scrollbars (barras de rolagem) em toda a aplicação, especialmente nas seções com rolagem lateral ou vertical, como a sidebar, tabelas com overflow e containers de listagem. O estilo atual das scrolls é genérico e visualmente ultrapassado, quebrando a estética clean e moderna da interface. É essencial que essas barras sejam reformuladas para refletir o padrão minimalista, suave e discreto da plataforma AutoGestão.
+
+As scrollbars devem seguir um visual moderno, fino, sutil e com animação suave, respeitando o tema branco puro da aplicação. Especificamente:
+
+Largura da scrollbar vertical: 4px
+
+Altura da scrollbar horizontal: 4px
+
+Cor do track (fundo da barra): transparente ou #f4f4f5
+
+Cor do thumb (barra que desliza): #c2c2c2 com hover em #999999
+
+Border-radius: 9999px (para um efeito “pill”)
+
+Sem sombras, sem bordas pesadas, sem contraste agressivo
+
+Transições suaves (transition-all) na opacidade e cor do thumb
+
+Caso esteja utilizando Tailwind CSS, aplique as classes necessárias com scrollbar-thin, scrollbar-track-transparent, scrollbar-thumb-neutral-400, ou use um plugin como tailwind-scrollbar. Caso prefiram uma abordagem com CSS puro, adicione o seguinte snippet globalmente no projeto:
+
+css
+Copiar
+Editar
+/* Scrollbar para WebKit (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #c2c2c2;
+  border-radius: 9999px;
+  transition: background-color 0.2s ease-in-out;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #999999;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #c2c2c2 transparent;
+}
+Essas scrolls devem ser aplicadas especificamente em elementos que realmente necessitam de rolagem, como SidebarContent, containers de listagem de ordens de serviço, tabelas de clientes, cards de estoque e relatórios. Evite aplicar no body geral da aplicação se isso afetar negativamente a fluidez.
+
+Essa atualização deve ser feita com atenção total à estética do sistema, sem prejudicar a acessibilidade, sem poluir visualmente a tela e garantindo que o design continue limpo e funcional. A barra de rolagem deve ser visualmente presente apenas quando necessária e de maneira integrada ao estilo da UI.
+
+Finalize a implementação com testes visuais e garanta que a experiência visual da rolagem esteja elegante, leve e alinhada com a identidade visual branca, moderna e minimalista da aplicação. 
