@@ -24,10 +24,12 @@ import {
   Search,
 } from "lucide-react"
 
+import { ptBR } from "date-fns/locale"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { useMediaQuery } from "@/hooks/use-media-query"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 interface Event {
   id: number
@@ -90,33 +92,30 @@ export function FullScreenCalendar({ data, onDateSelect, onNewAppointment }: Ful
       <div className="flex flex-col space-y-4 p-4 md:flex-row md:items-center md:justify-between md:space-y-0 lg:flex-none">
         <div className="flex flex-auto">
           <div className="flex items-center gap-4">
-            <div className="hidden w-20 flex-col items-center justify-center rounded-lg border bg-muted p-0.5 md:flex">
-              <h1 className="p-1 text-xs uppercase text-muted-foreground">
-                {format(today, "MMM")}
-              </h1>
-              <div className="flex w-full items-center justify-center rounded-lg border bg-background p-0.5 text-lg font-bold">
-                <span>{format(today, "d")}</span>
-              </div>
-            </div>
-            <div className="flex flex-col">
+            <Select defaultValue="all">
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Todos</SelectItem>
+                <SelectItem value="scheduled">Agendados</SelectItem>
+                <SelectItem value="completed">Concluídos</SelectItem>
+                <SelectItem value="canceled">Cancelados</SelectItem>
+              </SelectContent>
+            </Select>
+            <div className="flex flex-col ml-4">
               <h2 className="text-lg font-semibold text-foreground">
-                {format(firstDayCurrentMonth, "MMMM, yyyy")}
+                {format(firstDayCurrentMonth, "MMMM 'de' yyyy", { locale: ptBR })}
               </h2>
               <p className="text-sm text-muted-foreground">
-                {format(firstDayCurrentMonth, "MMM d, yyyy")} -{" "}
-                {format(endOfMonth(firstDayCurrentMonth), "MMM d, yyyy")}
+                {format(firstDayCurrentMonth, "d 'de' MMMM", { locale: ptBR })} -{" "}
+                {format(endOfMonth(firstDayCurrentMonth), "d 'de' MMMM", { locale: ptBR })}
               </p>
             </div>
           </div>
         </div>
 
         <div className="flex flex-col items-center gap-4 md:flex-row md:gap-6">
-          <Button variant="outline" size="icon" className="hidden lg:flex">
-            <Search size={16} strokeWidth={2} aria-hidden="true" />
-          </Button>
-
-          <Separator orientation="vertical" className="hidden h-6 lg:block" />
-
           <div className="inline-flex w-full -space-x-px rounded-lg shadow-sm shadow-black/5 md:w-auto rtl:space-x-reverse">
             <Button
               onClick={previousMonth}
@@ -132,7 +131,7 @@ export function FullScreenCalendar({ data, onDateSelect, onNewAppointment }: Ful
               className="w-full rounded-none shadow-none first:rounded-s-lg last:rounded-e-lg focus-visible:z-10 md:w-auto"
               variant="outline"
             >
-              {format(firstDayCurrentMonth, "MMMM")}
+              {format(firstDayCurrentMonth, "MMMM", { locale: ptBR })}
             </Button>
             <Button
               onClick={nextMonth}

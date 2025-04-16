@@ -75,8 +75,6 @@ export default function AppointmentsPage() {
           </Card>
         </div>
 
-        <AppointmentFilters />
-
         <div className="flex flex-1 gap-4">
           <div className="flex-1">
             <FullScreenCalendar 
