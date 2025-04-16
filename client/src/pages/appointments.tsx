@@ -1,11 +1,10 @@
-
 import { useState } from 'react';
 import { EnhancedDashboardLayout } from '@/components/layout/enhanced-dashboard-layout';
 import { AppointmentDialog } from '@/components/appointments/appointment-dialog';
 import { AppointmentFilters } from '@/components/appointments/appointment-filters';
 import { FullScreenCalendar } from '@/components/ui/fullscreen-calendar';
 import { Card } from '@/components/ui/card';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from "@/hooks/use-toast";
 
 // Mock data and types - replace with API integration later
 const dummyEvents = [
@@ -82,7 +81,7 @@ export default function AppointmentsPage() {
         </div>
 
         <AppointmentFilters />
-        
+
         <div className="flex flex-1 gap-4">
           <div className="flex-1">
             <FullScreenCalendar 
