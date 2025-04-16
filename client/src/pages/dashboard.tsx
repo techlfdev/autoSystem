@@ -1,14 +1,11 @@
-import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Sidebar } from '@/components/layout/sidebar';
-import { Header } from '@/components/layout/header';
+import { DashboardLayout } from '@/components/layout/dashboard-layout';
 import { MetricCard } from '@/components/dashboard/metric-card';
-import { ServicesInProgress } from '@/components/dashboard/services-in-progress';
-import { DailySchedule } from '@/components/dashboard/daily-schedule';
-import { FinancialMetrics } from '@/components/dashboard/financial-metrics';
-import { Alerts } from '@/components/dashboard/alerts';
+import { ServicesInProgress, Service } from '@/components/dashboard/services-in-progress';
+import { DailySchedule, Appointment } from '@/components/dashboard/daily-schedule';
+import { FinancialMetrics, FinancialData } from '@/components/dashboard/financial-metrics';
+import { Alerts, AlertItem } from '@/components/dashboard/alerts';
 import { formatCurrency, formatTimeRemaining } from '@/lib/utils/date-utils';
-import { useIsMobile } from '@/hooks/use-media-query';
 
 // Import icons
 import {
@@ -18,27 +15,44 @@ import {
   AlertCircle
 } from 'lucide-react';
 
-export default function Dashboard() {
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const isMobile = useIsMobile();
+// Define the dashboard summary data interface
+interface DashboardSummary {
+  servicesInProgress: {
+    count: number;
+    items: Service[];
+  };
+  todayAppointments: {
+    count: number;
+    items: Appointment[];
+    nextAppointment?: {
+      id: number;
+      timeRemaining: number;
+    };
+  };
+  monthlyRevenue: {
+    total: number;
+    growth: string;
+    serviceCount: number;
+    averageTicket: number;
+    goalProgress: number;
+  };
+  criticalAlerts: {
+    count: number;
+    items: AlertItem[];
+  };
+  revenueChart: {
+    labels: string[];
+    currentYearData: number[];
+    previousYearData: number[];
+  };
+}
 
+export default function Dashboard() {
   // Fetch dashboard data
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error } = useQuery<DashboardSummary>({
     queryKey: ['/api/dashboard-summary'],
     staleTime: 1000 * 60 * 5, // 5 minutes
   });
-
-  // Toggle sidebar collapse
-  const toggleSidebar = () => {
-    setSidebarCollapsed(!sidebarCollapsed);
-  };
-
-  // Effect to automatically collapse sidebar on mobile
-  useEffect(() => {
-    if (isMobile) {
-      setSidebarCollapsed(true);
-    }
-  }, [isMobile]);
 
   // Handle errors
   if (error) {
@@ -51,94 +65,96 @@ export default function Dashboard() {
     );
   }
 
+  // Create financial data for the FinancialMetrics component
+  const financialData: FinancialData = {
+    monthlyRevenue: {
+      total: data?.monthlyRevenue?.total || 0,
+      growth: data?.monthlyRevenue?.growth || "0.0",
+      serviceCount: data?.monthlyRevenue?.serviceCount || 0,
+      averageTicket: data?.monthlyRevenue?.averageTicket || 0,
+      goalProgress: data?.monthlyRevenue?.goalProgress || 0
+    },
+    revenueChart: {
+      labels: data?.revenueChart?.labels || [],
+      currentYearData: data?.revenueChart?.currentYearData || [],
+      previousYearData: data?.revenueChart?.previousYearData || []
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-background text-foreground flex relative">
-      <Sidebar 
-        collapsed={sidebarCollapsed} 
-        onToggleCollapse={toggleSidebar}
-      />
-      
-      <div className="flex-1 flex flex-col">
-        <Header onToggleSidebar={toggleSidebar} />
+    <DashboardLayout>
+      {/* Metric Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <MetricCard
+          title="Serviços em andamento"
+          value={isLoading ? "..." : data?.servicesInProgress?.count || 0}
+          icon={<Wrench className="h-6 w-6 text-primary" />}
+          trend={{
+            value: "+8.2%",
+            positive: true,
+            label: "em relação a ontem"
+          }}
+        />
         
-        <main className={`flex-1 transition-all duration-200 p-4 md:p-6 lg:p-8 ${sidebarCollapsed ? 'md:ml-[70px]' : 'md:ml-[240px]'}`}>
-          {/* Metric Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-            <MetricCard
-              title="Serviços em andamento"
-              value={isLoading ? "..." : data?.servicesInProgress.count || 0}
-              icon={<Wrench className="h-6 w-6 text-primary" />}
-              trend={{
-                value: "+8.2%",
-                positive: true,
-                label: "em relação a ontem"
-              }}
-            />
-            
-            <MetricCard
-              title="Agendamentos hoje"
-              value={isLoading ? "..." : data?.todayAppointments.count || 0}
-              icon={<CalendarCheck className="h-6 w-6 text-emerald-500" />}
-              trend={{
-                value: isLoading || !data?.todayAppointments.nextAppointment 
-                  ? "Nenhum agendamento próximo" 
-                  : formatTimeRemaining(data.todayAppointments.nextAppointment.timeRemaining),
-                label: "Próximo em"
-              }}
-            />
-            
-            <MetricCard
-              title="Faturamento do mês"
-              value={isLoading ? "..." : formatCurrency(data?.monthlyRevenue.total || 0)}
-              icon={<DollarSign className="h-6 w-6 text-amber-500" />}
-              trend={{
-                value: isLoading ? "..." : `+${data?.monthlyRevenue.growth || "0.0"}%`,
-                positive: true,
-                label: "vs mês anterior"
-              }}
-            />
-            
-            <MetricCard
-              title="Alertas críticos"
-              value={isLoading ? "..." : data?.criticalAlerts.count || 0}
-              icon={<AlertCircle className="h-6 w-6 text-destructive" />}
-              pulsingIcon={!!data?.criticalAlerts.count}
-              className={!!data?.criticalAlerts.count ? "text-destructive" : ""}
-            />
-          </div>
-          
-          {/* Services Status and Schedule */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-            <ServicesInProgress 
-              services={data?.servicesInProgress.items || []}
-              isLoading={isLoading}
-              className="lg:col-span-2"
-            />
-            
-            <DailySchedule 
-              appointments={data?.todayAppointments.items || []}
-              isLoading={isLoading}
-            />
-          </div>
-          
-          {/* Financial Overview and Alerts */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <FinancialMetrics 
-              data={data || { 
-                monthlyRevenue: { total: 0, growth: "0.0", serviceCount: 0, averageTicket: 0, goalProgress: 0 },
-                revenueChart: { labels: [], currentYearData: [], previousYearData: [] }
-              }}
-              isLoading={isLoading}
-              className="lg:col-span-2"
-            />
-            
-            <Alerts 
-              alerts={data?.criticalAlerts.items || []}
-              isLoading={isLoading}
-            />
-          </div>
-        </main>
+        <MetricCard
+          title="Agendamentos hoje"
+          value={isLoading ? "..." : data?.todayAppointments?.count || 0}
+          icon={<CalendarCheck className="h-6 w-6 text-emerald-500" />}
+          trend={{
+            value: isLoading || !data?.todayAppointments?.nextAppointment 
+              ? "Nenhum agendamento próximo" 
+              : formatTimeRemaining(data.todayAppointments.nextAppointment.timeRemaining),
+            label: "Próximo em"
+          }}
+        />
+        
+        <MetricCard
+          title="Faturamento do mês"
+          value={isLoading ? "..." : formatCurrency(data?.monthlyRevenue?.total || 0)}
+          icon={<DollarSign className="h-6 w-6 text-amber-500" />}
+          trend={{
+            value: isLoading ? "..." : `+${data?.monthlyRevenue?.growth || "0.0"}%`,
+            positive: true,
+            label: "vs mês anterior"
+          }}
+        />
+        
+        <MetricCard
+          title="Alertas críticos"
+          value={isLoading ? "..." : data?.criticalAlerts?.count || 0}
+          icon={<AlertCircle className="h-6 w-6 text-destructive" />}
+          pulsingIcon={!!data?.criticalAlerts?.count}
+          className={!!data?.criticalAlerts?.count ? "text-destructive" : ""}
+        />
       </div>
-    </div>
+      
+      {/* Services Status and Schedule */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+        <ServicesInProgress 
+          services={data?.servicesInProgress?.items || []}
+          isLoading={isLoading}
+          className="lg:col-span-2"
+        />
+        
+        <DailySchedule 
+          appointments={data?.todayAppointments?.items || []}
+          isLoading={isLoading}
+        />
+      </div>
+      
+      {/* Financial Overview and Alerts */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <FinancialMetrics 
+          data={financialData}
+          isLoading={isLoading}
+          className="lg:col-span-2"
+        />
+        
+        <Alerts 
+          alerts={data?.criticalAlerts?.items || []}
+          isLoading={isLoading}
+        />
+      </div>
+    </DashboardLayout>
   );
 }
