@@ -1,0 +1,35 @@
+Identifique e corrija imediatamente o erro de pré-processamento reportado pelo Vite relacionado à importação falha de um componente essencial para os filtros de ordens de serviço:
+
+pgsql
+Copiar
+Editar
+[vite] Pre-transform error: Failed to resolve import "@/components/ui/date-picker" from "client/src/components/service-orders/service-order-filters.tsx". Does the file exist?
+Este erro aponta para uma tentativa de importação de um componente date-picker localizado na pasta @/components/ui, porém o Vite não está conseguindo localizar ou transformar esse módulo no momento do build. Isso compromete diretamente a renderização dos filtros por data na interface de OS e causa falha crítica em tempo de execução.
+
+Essa falha precisa ser resolvida de forma definitiva e com máxima precisão. Para isso:
+
+Verifique se o componente date-picker.tsx realmente existe na pasta client/src/components/ui/. Se o arquivo estiver ausente, ele deve ser criado ou restaurado imediatamente com a funcionalidade completa de seleção de datas, utilizando bibliotecas como react-day-picker, date-fns ou @headlessui/react-datepicker.
+
+Caso o componente exista com outro nome ou extensão, ajuste a importação corretamente no arquivo service-order-filters.tsx, garantindo que o caminho seja exato e respeite a estrutura de pastas e case sensitivity.
+
+Se o componente ainda não foi implementado, crie agora um DatePicker funcional, com suporte a seleção de intervalo (range), data única (single) e estilização compatível com o tema atual do projeto (fundo branco, bordas arredondadas, fonte Manrope). Ele deve ser responsivo, acessível e fácil de usar.
+
+Recompile o projeto após a correção, limpando cache do Vite se necessário. Execute:
+
+bash
+Copiar
+Editar
+rm -rf node_modules .vite dist
+npm install
+npm run dev
+Garanta que todos os pontos que dependem do componente DatePicker estejam agora funcionando corretamente, principalmente os filtros de datas das ordens de serviço. A ausência desse componente pode prejudicar funcionalidades como:
+
+Filtro por data de criação
+
+Filtro por data prevista de conclusão
+
+Filtro por data de aprovação ou status
+
+Essa correção não pode ser parcial. O sistema precisa identificar, carregar e renderizar o seletor de datas sem qualquer falha. Esse componente é indispensável para a usabilidade avançada da aplicação, principalmente na gestão de OSs, onde o tempo de execução e prazos são cruciais.
+
+A falha reportada afeta diretamente a experiência do usuário e quebra o fluxo de uso. Elimine esse erro completamente e valide que ele não voltará a ocorrer em nenhum ambiente (local, staging ou produção). A entrega deve ser sólida, estável e 100% funcional.
