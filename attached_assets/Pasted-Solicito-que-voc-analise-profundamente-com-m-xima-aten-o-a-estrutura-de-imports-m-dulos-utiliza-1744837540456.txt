@@ -1,0 +1,50 @@
+Solicito que você analise profundamente, com máxima atenção, a estrutura de imports, módulos utilizados, dependências e possíveis conflitos de resolução de pacotes em todo o projeto. O erro atual —
+
+javascript
+Copiar
+Editar
+[plugin:runtime-error-plugin] The requested module 'lucide-react.js' does not provide an export named 'Tool'
+— revela uma falha crítica de uso incorreto da biblioteca de ícones lucide-react. Este tipo de erro não pode ocorrer em um projeto que esteja sendo preparado para ambiente de produção.
+
+A ocorrência do erro indica que está sendo feita uma tentativa de importar um ícone chamado Tool que não existe ou não está disponível no pacote atual da biblioteca. Isso pode ser causado por:
+
+Um erro de digitação no nome do ícone;
+
+Uso de um ícone que foi renomeado ou removido em versões mais recentes da lucide-react;
+
+Uma importação mal estruturada ou não atualizada;
+
+Cache corrompido do Vite que não refletiu corretamente os módulos.
+
+Portanto, aplique correções definitivas, seguindo os seguintes princípios:
+
+Faça uma revisão minuciosa de todos os ícones importados da lucide-react, garantindo que cada um esteja:
+
+Corretamente nomeado
+
+Efetivamente exportado pela versão instalada da lib
+
+Compatível com a versão da lucide-react usada no projeto
+
+Se estiver utilizando algum ícone inexistente como Tool, substitua por um válido — por exemplo, Wrench, Settings, Hammer ou Gavel — todos disponíveis na documentação oficial.
+
+Remova o uso de qualquer ícone que não conste na exportação atual do pacote. Você pode verificar isso diretamente na pasta node_modules/lucide-react, ou acessando a lista oficial de ícones.
+
+Limpe completamente o cache do Vite e reinstale as dependências para evitar falsos positivos:
+
+Exclua a pasta .vite, node_modules, dist e o arquivo package-lock.json
+
+Execute:
+
+bash
+Copiar
+Editar
+rm -rf node_modules .vite dist package-lock.json
+npm install
+Adicione verificação automática ou fallback para ícones ausentes, caso deseje um sistema mais robusto para evitar falha de build em ambiente dinâmico.
+
+Garanta que nenhuma outra parte da aplicação dependa de imports quebrados. Execute um linting profundo, análise de árvore de dependências e revisão completa dos componentes que usam ícones ou bibliotecas visuais externas.
+
+Essa correção precisa ser profunda e final. Não pode haver recorrência desse erro, nem similaridades dele em outros pontos do projeto. Esse é o tipo de falha que causa travamento imediato no carregamento e compromete completamente a experiência do usuário final.
+
+Aplique a correção agora, com total rigor técnico. 
