@@ -376,13 +376,93 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
             <Button 
               variant="ghost" 
               size="icon" 
-              className="absolute top-4 left-4 z-50"
+              className="absolute top-4 right-4 z-50 md:hidden"
             >
-              <Menu className="h-5 w-5 text-neutral-800" />
+              <LayoutDashboard className="h-5 w-5 text-neutral-800" />
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="w-[280px] p-0 bg-white border-r transition-all duration-300">
-            <SidebarContent />
+          <SheetContent 
+            side="right" 
+            className="w-[280px] p-0 bg-white border-l shadow-none transition-transform duration-300 font-manrope tracking-tight"
+          >
+            <div className="flex flex-col h-full">
+              {/* Logo Section */}
+              <div className="p-4 flex items-center justify-between border-b">
+                <div className="flex items-center gap-3">
+                  <Car className="h-6 w-6 text-primary" />
+                  <span className="text-lg font-semibold text-black">AutoGestão</span>
+                </div>
+              </div>
+
+              {/* Navigation Menu */}
+              <div className="flex-1 overflow-y-auto py-4">
+                {menuSections.map((section, idx) => (
+                  <div key={idx} className="mb-6">
+                    <h2 className="text-xs uppercase tracking-wider px-4 mb-2 text-gray-500 font-medium">
+                      {section.title}
+                    </h2>
+                    <div className="space-y-1">
+                      {section.items.map((item, itemIdx) => {
+                        const isActive = location === item.href;
+                        return (
+                          <button
+                            key={itemIdx}
+                            onClick={handleNavClick(item.href)}
+                            className={cn(
+                              "flex items-center w-full py-2 px-4 gap-3 transition-colors",
+                              "text-sm font-medium",
+                              isActive 
+                                ? "bg-blue-50 text-blue-700" 
+                                : "text-black hover:bg-gray-50"
+                            )}
+                          >
+                            {React.cloneElement(item.icon as React.ReactElement, {
+                              className: cn(
+                                "h-5 w-5",
+                                isActive ? "text-blue-700" : "text-gray-600"
+                              )
+                            })}
+                            <span>{item.label}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* User Profile Footer */}
+              <div className="border-t p-4">
+                <div className="flex items-center gap-3 mb-3">
+                  <Avatar className="h-10 w-10 border border-gray-100">
+                    <AvatarImage 
+                      src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" 
+                      alt={user.name} 
+                    />
+                    <AvatarFallback>{user.name?.substring(0, 2).toUpperCase()}</AvatarFallback>
+                  </Avatar>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-black truncate">{user.name}</p>
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      {renderForPlan(
+                        subscriptionPlan,
+                        <Timer className="h-4 w-4" />,
+                        <ShieldCheck className="h-4 w-4 text-blue-500" />,
+                        <Crown className="h-4 w-4 text-amber-500" />
+                      )}
+                      <span>
+                        {renderForPlan(
+                          subscriptionPlan,
+                          'Plano Gratuito',
+                          'Plano Intermediário',
+                          'Plano Avançado'
+                        )}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </SheetContent>
         </Sheet>
       </>
