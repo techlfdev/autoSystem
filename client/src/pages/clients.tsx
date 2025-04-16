@@ -5,7 +5,10 @@ import { EnhancedDashboardLayout } from '@/components/layout/enhanced-dashboard-
 import { ClientsTable } from '@/components/clients/clients-table';
 import { ClientDetails } from '@/components/clients/client-details';
 import { ClientFilters } from '@/components/clients/client-filters';
+import { ClientForm } from '@/components/clients/client-form';
 import { useQuery } from '@tanstack/react-query';
+import { Button } from '@/components/ui/button';
+import { Plus } from 'lucide-react';
 
 export default function ClientsPage() {
   const [selectedClientId, setSelectedClientId] = useState<number | null>(null);
@@ -15,11 +18,17 @@ export default function ClientsPage() {
     queryFn: () => fetch('/api/clients').then(res => res.json())
   });
 
+  const [isNewClientFormOpen, setIsNewClientFormOpen] = useState(false);
+
   return (
     <EnhancedDashboardLayout>
       <div className="h-full flex flex-col gap-4 p-6">
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-semibold tracking-tighter">Clientes</h1>
+          <Button onClick={() => setIsNewClientFormOpen(true)} className="gap-2">
+            <Plus className="h-4 w-4" />
+            Novo Cliente
+          </Button>
         </div>
         
         <ClientFilters />
@@ -49,6 +58,10 @@ export default function ClientsPage() {
           </AnimatePresence>
         </div>
       </div>
+      <ClientForm 
+        open={isNewClientFormOpen}
+        onOpenChange={setIsNewClientFormOpen}
+      />
     </EnhancedDashboardLayout>
   );
 }
