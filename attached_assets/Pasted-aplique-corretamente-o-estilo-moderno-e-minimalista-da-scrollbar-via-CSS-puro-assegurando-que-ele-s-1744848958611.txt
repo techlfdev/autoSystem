@@ -1,0 +1,72 @@
+aplique corretamente o estilo moderno e minimalista da scrollbar via CSS puro, assegurando que ele seja refletido especificamente na sidebar lateral e em todos os containers com rolagem vertical, como listas, tabelas e drawers. O estilo já foi definido globalmente no CSS, mas ainda não está sendo aplicado na prática porque os elementos com rolagem parecem estar encapsulados ou ignorando os seletores globais.
+
+Aplique esse CSS global obrigatoriamente:
+
+css
+Copiar
+Editar
+/* Scrollbar moderna - WebKit */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #c2c2c2;
+  border-radius: 9999px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #999999;
+}
+
+/* Scrollbar moderna - Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #c2c2c2 transparent;
+}
+Agora, verifique se o componente da sidebar ou qualquer outro com rolagem (por exemplo, o wrapper de navegação lateral) possui overflow-y-auto ou overflow-y-scroll. Esses elementos precisam receber explicitamente a classe CSS que permitirá que o estilo da scrollbar se aplique.
+
+Exemplo prático:
+
+No componente da Sidebar, o container com rolagem deve estar assim:
+
+tsx
+Copiar
+Editar
+<div className="overflow-y-auto h-full custom-scroll">
+  {/* menu */}
+</div>
+E no CSS global (ex: index.css), defina o seguinte caso queira aplicar apenas onde for necessário:
+
+css
+Copiar
+Editar
+.custom-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scroll::-webkit-scrollbar-thumb {
+  background-color: #c2c2c2;
+  border-radius: 9999px;
+}
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background-color: #999999;
+}
+Requisitos da entrega:
+
+A rolagem da sidebar precisa estar com estilo fino, arredondado, moderno, com hover animado.
+
+Deve funcionar tanto em overflow-y-auto quanto em overflow-scroll.
+
+Não pode quebrar layout, funcionalidade ou responsividade.
+
+Estilo deve refletir o layout clean da aplicação.
+
+Finalize com validação visual no navegador. Se quiser aplicar a todos os scrolls da aplicação, mantenha o seletor global com *, senão, limite usando a classe .custom-scroll nos containers específicos.
+
+Essa entrega é estética e funcional. Precisa funcionar sem falhas e com visual refinado.
