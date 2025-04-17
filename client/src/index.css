@@ -29,6 +29,13 @@
   scrollbar-color: #bbbbbb transparent;
 }
 
+/* Chart transitions */
+.recharts-area path,
+.recharts-line-curve,
+.recharts-line path {
+  transition: all 300ms ease-in-out;
+}
+
 @layer base {
   /* Chart color transitions */
   .recharts-line-curve {

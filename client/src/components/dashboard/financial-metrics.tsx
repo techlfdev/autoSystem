@@ -63,6 +63,17 @@ export function FinancialMetrics({ data, isLoading = false, className }: Financi
   const previousYearTotal = data.revenueChart.previousYearData.reduce((a, b) => a + b, 0);
   const isPositiveGrowth = currentYearTotal > previousYearTotal;
 
+  const chartColors = {
+    positive: {
+      stroke: '#22C55E',
+      fill: '#D1FAE5'
+    },
+    negative: {
+      stroke: '#EF4444',
+      fill: '#FECACA'
+    }
+  };
+
   return (
     <Card className={cn("h-full", className)}>
       <CardHeader className="pb-3">
@@ -117,8 +128,8 @@ export function FinancialMetrics({ data, isLoading = false, className }: Financi
                 >
                   <defs>
                     <linearGradient id="colorAtual" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor={isPositiveGrowth ? "hsl(var(--chart-1))" : "hsl(var(--chart-error))"} stopOpacity={0.3} />
-                      <stop offset="95%" stopColor={isPositiveGrowth ? "hsl(var(--chart-1))" : "hsl(var(--chart-error))"} stopOpacity={0} />
+                      <stop offset="5%" stopColor={isPositiveGrowth ? chartColors.positive.stroke : chartColors.negative.stroke} stopOpacity={0.3} />
+                      <stop offset="95%" stopColor={isPositiveGrowth ? chartColors.positive.stroke : chartColors.negative.stroke} stopOpacity={0} />
                     </linearGradient>
                     <linearGradient id="colorAnterior" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor="hsl(var(--chart-2))" stopOpacity={0.3} />
@@ -144,11 +155,16 @@ export function FinancialMetrics({ data, isLoading = false, className }: Financi
                   <Area 
                     type="monotone" 
                     dataKey="atual" 
-                    stroke={isPositiveGrowth ? "hsl(var(--chart-1))" : "hsl(var(--chart-error))"} 
-                    fillOpacity={1}
-                    fill="url(#colorAtual)"
+                    stroke={isPositiveGrowth ? chartColors.positive.stroke : chartColors.negative.stroke}
+                    fillOpacity={0.2}
+                    fill={isPositiveGrowth ? chartColors.positive.fill : chartColors.negative.fill}
                     strokeWidth={2}
-                    dot={{ stroke: isPositiveGrowth ? "hsl(var(--chart-1))" : "hsl(var(--chart-error))", r: 4, strokeWidth: 2, fill: 'hsl(var(--background))' }}
+                    dot={{ 
+                      stroke: isPositiveGrowth ? chartColors.positive.stroke : chartColors.negative.stroke, 
+                      r: 4, 
+                      strokeWidth: 2, 
+                      fill: 'hsl(var(--background))' 
+                    }}
                     activeDot={{ r: 6 }}
                     name="Atual"
                   />
