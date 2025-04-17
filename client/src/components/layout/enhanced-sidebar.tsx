@@ -188,7 +188,7 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
 
   // Render sidebar content
   const SidebarContent = () => (
-    <div className="flex flex-col h-full custom-scrollbar"> {/* Added custom-scrollbar class */}
+    <div className="flex flex-col h-full">
       {/* Logo Section */}
       <div className="flex items-center justify-center p-4">
         <div className="flex items-center">
@@ -383,7 +383,7 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
           </SheetTrigger>
           <SheetContent 
             side="right" 
-            className="w-[280px] p-0 bg-white border-l shadow-none transition-transform duration-300 font-manrope tracking-tight custom-scrollbar"  {/* Added custom-scrollbar class */}
+            className="w-[280px] p-0 bg-white border-l shadow-none transition-transform duration-300 font-manrope tracking-tight"
           >
             <div className="flex flex-col h-full">
               {/* Logo Section */}
@@ -478,7 +478,7 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
         initial={expanded ? "expanded" : "collapsed"}
         animate={expanded ? "expanded" : "collapsed"}
         className={cn(
-          "fixed h-screen z-30 bg-white border-r border-gray-200 shadow-md custom-scrollbar",  {/* Added custom-scrollbar class */}
+          "fixed h-screen z-30 bg-white border-r border-gray-200 shadow-md",
           expanded ? "border-opacity-20" : "border-opacity-0",
           !expanded && !isHovering && "hover:border-opacity-20",
           className

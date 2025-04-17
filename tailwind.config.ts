@@ -1,10 +1,8 @@
 import type { Config } from "tailwindcss";
-import plugin from "tailwindcss/plugin";
 
 export default {
   // Removido suporte a darkMode
   content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}"],
-  plugins: [require('tailwind-scrollbar')],
   theme: {
     extend: {
       fontFamily: {
@@ -94,20 +92,5 @@ export default {
       },
     },
   },
-  plugins: [
-    require("tailwindcss-animate"),
-    require("@tailwindcss/typography"),
-    require('tailwind-scrollbar'),
-    plugin(({ addUtilities }) => {
-      addUtilities({
-        '.scrollbar-hide': {
-          '-ms-overflow-style': 'none',
-          'scrollbar-width': 'none',
-          '&::-webkit-scrollbar': {
-            display: 'none',
-          },
-        },
-      });
-    }),
-  ],
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
 } satisfies Config;
