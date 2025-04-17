@@ -1,0 +1,62 @@
+Solicito que você corrija imediatamente o erro de pré-compilação causado pela ausência do módulo tailwind-scrollbar, conforme indicado na mensagem:
+
+lua
+Copiar
+Editar
+[vite] Pre-transform error: Cannot find module 'tailwind-scrollbar'
+Esse erro está impedindo o servidor de subir e está disparando um deadlock no processo de bundling do Vite com esbuild, travando completamente a aplicação. A causa é clara: o plugin tailwind-scrollbar foi referenciado no tailwind.config.js ou tailwind.config.ts, mas não foi instalado corretamente no ambiente atual.
+
+Execute os seguintes passos sem falhas, sem variações e de forma completa:
+
+Instale corretamente o plugin oficial que habilita as classes scrollbar-thin, scrollbar-track-transparent e scrollbar-thumb-neutral-400, com o seguinte comando:
+
+bash
+Copiar
+Editar
+npm install tailwind-scrollbar
+Garanta que o plugin seja adicionado corretamente no arquivo de configuração do Tailwind (tailwind.config.ts ou tailwind.config.js), da seguinte forma:
+
+ts
+Copiar
+Editar
+plugins: [
+  require('tailwind-scrollbar'),
+],
+Limpe completamente os caches e pastas de build para evitar inconsistências:
+
+bash
+Copiar
+Editar
+rm -rf node_modules .vite dist package-lock.json
+npm install
+Reinicie o servidor de desenvolvimento:
+
+bash
+Copiar
+Editar
+npm run dev
+Verifique se as classes relacionadas à rolagem estão funcionando corretamente. Aplique as classes em elementos com overflow como:
+
+tsx
+Copiar
+Editar
+<div className="overflow-y-auto scrollbar-thin scrollbar-thumb-neutral-400 scrollbar-track-transparent">
+Essa correção precisa ser final e estável. Nenhum erro de build, travamento ou importação de plugin deve ocorrer novamente. O projeto deve iniciar normalmente, com scrollbars personalizadas e leves, e com a experiência visual consistente com o design minimalista do sistema AutoGestão.
+
+Caso, por algum motivo, o ambiente Replit não permita a instalação de plugins externos com require(), aplique uma alternativa com CSS puro como fallback, removendo a referência ao plugin e estilizando diretamente via index.css:
+
+css
+Copiar
+Editar
+/* index.css */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #c2c2c2;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+Essa tarefa precisa ser feita com precisão absoluta. A aplicação não pode continuar com erros de build ou comportamento quebrado. Corrija, teste e valide. O scroll precisa funcionar com leveza, estética e estabilidade.
