@@ -1,0 +1,49 @@
+Solicito que a página de Dashboard seja atualizada com as seguintes melhorias visuais e funcionais, garantindo que todas as alterações respeitem a identidade visual do sistema AutoGestão (estética moderna, minimalista e profissional):
+
+1. Gráfico de Faturamento — cor dinâmica condicional
+Implemente lógica condicional para que o gráfico de faturamento mude de cor automaticamente de acordo com o desempenho do período selecionado (semana, mês ou trimestre) comparado com o período anterior.
+
+Se o resultado for superior ao período anterior, o gráfico (linha e preenchimento) deve ficar verde (#34D399) indicando crescimento.
+
+Se o resultado for inferior, o gráfico deve ficar vermelho (#F87171) indicando queda.
+
+O valor de comparação pode ser baseado em ticket médio, total de serviços ou meta mensal, ou uma média entre eles.
+
+A animação de transição da cor deve ser suave (transition-all, ease-in-out, duration-300).
+
+A transição deve acontecer dinamicamente ao mudar entre Semana / Mês / Trimestre.
+
+Exemplo de uso no Recharts, caso esteja sendo utilizado:
+
+tsx
+Copiar
+Editar
+<Line
+  dataKey="valor"
+  stroke={tendencia === "up" ? "#34D399" : "#F87171"}
+  fillOpacity={0.1}
+  fill={tendencia === "up" ? "#BBF7D0" : "#FECACA"}
+/>
+Essa mudança precisa ser visualmente perceptível e coerente com a curva apresentada.
+
+2. Alertas Críticos — correção de cor em alertas vermelhos
+Corrija imediatamente a cor de texto da caixa de Alerta Crítico (ex: "Estoque Crítico: Óleo 5W30"), que atualmente está com contraste insuficiente, prejudicando a leitura.
+
+O texto dentro do card vermelho (#FEE2E2 ou similar) precisa ser mais escuro, por exemplo: #7F1D1D (vermelho profundo para contraste alto).
+
+Caso queira manter a estética sutil, use #991B1B para títulos e #B91C1C para conteúdo.
+
+Todos os textos em cards com fundo #FEE2E2 ou similar precisam passar no teste de contraste WCAG AA (mínimo 4.5:1).
+
+Certifique-se de ajustar tanto o título quanto os textos auxiliares e botões, mantendo a legibilidade e o padrão do restante do dashboard.
+
+Requisitos da entrega:
+A mudança de cor no gráfico deve ser totalmente funcional, baseada em dados comparativos entre períodos.
+
+A cor do gráfico precisa mudar de forma fluida e reativa.
+
+Os textos nos alertas devem ser ajustados visualmente e semanticamente para garantir contraste e clareza imediata.
+
+Nenhuma quebra visual, erro de layout ou regressão deve ocorrer após a aplicação.
+
+Essa entrega precisa refletir uma evolução do dashboard em termos de comunicação visual inteligente, ajudando o usuário a interpretar tendências de forma rápida e intuitiva. Garanta que a experiência seja refinada e confiável.
