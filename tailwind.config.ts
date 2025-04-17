@@ -4,6 +4,7 @@ import plugin from "tailwindcss/plugin";
 export default {
   // Removido suporte a darkMode
   content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}"],
+  plugins: [require('tailwind-scrollbar')],
   theme: {
     extend: {
       fontFamily: {
