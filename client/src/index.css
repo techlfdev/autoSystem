@@ -5,11 +5,11 @@
 @layer base {
   :root {
     --radius: 0.5rem;
-    
+
     /* Cores definidas para tema claro */
     --primary: 222.2 47.4% 11.2%;
     --primary-foreground: 210 40% 98%;
-    
+
     /* Tokens para uso com tema claro */
     --background: 0 0% 100%;         /* #FFFFFF */
     --foreground: 0 0% 0%;           /* #000000 */
@@ -28,7 +28,7 @@
     --border: 214.3 31.8% 91.4%;     /* #E2E8F0 */
     --input: 214.3 31.8% 91.4%;      /* #E2E8F0 */
     --ring: 222.2 84% 4.9%;          /* #0F172A */
-    
+
     /* Sidebar variables */
     --sidebar-background: 222.2 84% 4.9%;
     --sidebar-foreground: 210 40% 98%;
@@ -45,12 +45,12 @@
   body {
     @apply font-sans tracking-tighter antialiased bg-white text-black;
   }
-  
+
   /* Make h-svh work like h-screen but with svh units */
   .h-svh {
     height: 100svh;
   }
-  
+
   .min-h-svh {
     min-height: 100svh;
   }
