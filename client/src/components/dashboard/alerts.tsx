@@ -34,12 +34,15 @@ export function Alerts({ alerts = [], isLoading = false, className }: AlertsProp
   };
 
   const getAlertStyle = (type: string, severity: string) => {
-    if (severity === 'HIGH' || severity === 'CRITICAL') {
-      return type === 'INVENTORY' || type === 'CERTIFICATION'
-        ? 'bg-destructive/10 border-destructive/30 text-destructive-foreground'
-        : 'bg-amber-500/10 border-amber-500/30 text-amber-400';
+    switch (severity) {
+      case 'HIGH':
+      case 'CRITICAL':
+        return type === 'INVENTORY' || type === 'CERTIFICATION'
+          ? 'bg-red-50 border-red-300 text-red-900'
+          : 'bg-amber-50 border-amber-300 text-amber-900';
+      default:
+        return 'bg-yellow-50 border-yellow-300 text-yellow-900';
     }
-    return 'bg-muted/20 border-muted/30 text-muted-foreground';
   };
 
   const getAlertTitle = (type: string) => {
@@ -69,7 +72,7 @@ export function Alerts({ alerts = [], isLoading = false, className }: AlertsProp
           </span>
         </div>
       </CardHeader>
-      
+
       <CardContent>
         {isLoading ? (
           <div className="space-y-4 max-h-80">
@@ -91,7 +94,7 @@ export function Alerts({ alerts = [], isLoading = false, className }: AlertsProp
               const icon = getAlertIcon(alert.type);
               const style = getAlertStyle(alert.type, alert.severity);
               const title = getAlertTitle(alert.type);
-              
+
               return (
                 <div 
                   key={alert.id} 
@@ -138,7 +141,7 @@ export function Alerts({ alerts = [], isLoading = false, className }: AlertsProp
             })}
           </div>
         )}
-        
+
         <div className="mt-4">
           <Button 
             variant="outline" 

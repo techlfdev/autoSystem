@@ -40,7 +40,7 @@ export function FinancialMetrics({ data, isLoading = false, className }: Financi
     atual: data.revenueChart.currentYearData[index],
     anterior: data.revenueChart.previousYearData[index],
   }));
-  
+
   // Custom tooltip for the chart
   const CustomTooltip = ({ active, payload, label }: TooltipProps<number, string>) => {
     if (active && payload && payload.length) {
@@ -58,6 +58,10 @@ export function FinancialMetrics({ data, isLoading = false, className }: Financi
     }
     return null;
   };
+
+  const currentYearTotal = data.revenueChart.currentYearData.reduce((a, b) => a + b, 0);
+  const previousYearTotal = data.revenueChart.previousYearData.reduce((a, b) => a + b, 0);
+  const isPositiveGrowth = currentYearTotal > previousYearTotal;
 
   return (
     <Card className={cn("h-full", className)}>
@@ -77,7 +81,7 @@ export function FinancialMetrics({ data, isLoading = false, className }: Financi
             </TabsList>
           </Tabs>
         </div>
-        
+
         {/* Mobile Tabs */}
         <Tabs 
           defaultValue="month" 
@@ -92,7 +96,7 @@ export function FinancialMetrics({ data, isLoading = false, className }: Financi
           </TabsList>
         </Tabs>
       </CardHeader>
-      
+
       <CardContent>
         {isLoading ? (
           <>
@@ -113,8 +117,8 @@ export function FinancialMetrics({ data, isLoading = false, className }: Financi
                 >
                   <defs>
                     <linearGradient id="colorAtual" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="hsl(var(--chart-1))" stopOpacity={0.3} />
-                      <stop offset="95%" stopColor="hsl(var(--chart-1))" stopOpacity={0} />
+                      <stop offset="5%" stopColor={isPositiveGrowth ? "hsl(var(--chart-1))" : "hsl(var(--chart-error))"} stopOpacity={0.3} />
+                      <stop offset="95%" stopColor={isPositiveGrowth ? "hsl(var(--chart-1))" : "hsl(var(--chart-error))"} stopOpacity={0} />
                     </linearGradient>
                     <linearGradient id="colorAnterior" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor="hsl(var(--chart-2))" stopOpacity={0.3} />
@@ -140,11 +144,11 @@ export function FinancialMetrics({ data, isLoading = false, className }: Financi
                   <Area 
                     type="monotone" 
                     dataKey="atual" 
-                    stroke="hsl(var(--chart-1))" 
+                    stroke={isPositiveGrowth ? "hsl(var(--chart-1))" : "hsl(var(--chart-error))"} 
                     fillOpacity={1}
                     fill="url(#colorAtual)"
                     strokeWidth={2}
-                    dot={{ stroke: 'hsl(var(--chart-1))', r: 4, strokeWidth: 2, fill: 'hsl(var(--background))' }}
+                    dot={{ stroke: isPositiveGrowth ? "hsl(var(--chart-1))" : "hsl(var(--chart-error))", r: 4, strokeWidth: 2, fill: 'hsl(var(--background))' }}
                     activeDot={{ r: 6 }}
                     name="Atual"
                   />
@@ -162,7 +166,7 @@ export function FinancialMetrics({ data, isLoading = false, className }: Financi
                 </AreaChart>
               </ResponsiveContainer>
             </div>
-            
+
             {/* Key Metrics */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
               <div className="bg-muted/10 p-4 rounded-lg">
@@ -174,7 +178,7 @@ export function FinancialMetrics({ data, isLoading = false, className }: Financi
                   </span>
                 </div>
               </div>
-              
+
               <div className="bg-muted/10 p-4 rounded-lg">
                 <p className="text-sm text-muted-foreground">Total de Serviços</p>
                 <p className="text-xl font-semibold mt-1">{data.monthlyRevenue.serviceCount}</p>
@@ -184,7 +188,7 @@ export function FinancialMetrics({ data, isLoading = false, className }: Financi
                   </span>
                 </div>
               </div>
-              
+
               <div className="bg-muted/10 p-4 rounded-lg">
                 <p className="text-sm text-muted-foreground">Meta Mensal</p>
                 <p className="text-xl font-semibold mt-1">{data.monthlyRevenue.goalProgress}%</p>
