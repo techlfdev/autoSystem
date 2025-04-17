@@ -1,0 +1,59 @@
+Solicito que o Replit implemente imediatamente a lógica de mudança condicional da cor do gráfico de Faturamento na página de Dashboard, com base na comparação de desempenho com o período anterior. Essa alteração deve ser totalmente funcional, visualmente clara e com transição suave para reforçar o comportamento visual inteligente do sistema.
+
+Lógica esperada:
+O gráfico deve mudar de cor automaticamente ao trocar entre os períodos "Semana", "Mês" ou "Trimestre", comparando os dados atuais com o respectivo período anterior.
+
+Se houver aumento nos valores de faturamento, o gráfico deve:
+
+Usar linha em verde: #22C55E (ou #34D399)
+
+Usar preenchimento (fill) em tom pastel de verde: #D1FAE5 ou #BBF7D0
+
+Se houver queda no faturamento, o gráfico deve:
+
+Usar linha em vermelho: #EF4444 (ou #F87171)
+
+Usar preenchimento (fill) em tom pastel de vermelho: #FECACA ou #FEE2E2
+
+A comparação pode se basear em:
+
+ticketMédio, totalServiços, metaMensal ou um valor consolidado totalFaturamento
+
+if (faturamentoAtual > faturamentoAnterior) => verde else => vermelho
+
+Exemplo (React + Recharts):
+No componente que renderiza o gráfico:
+
+tsx
+Copiar
+Editar
+const tendencia = faturamentoAtual > faturamentoAnterior ? "up" : "down"
+
+<AreaChart data={dados}>
+  <defs>
+    <linearGradient id="colorGrafico" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="5%" stopColor={tendencia === "up" ? "#22C55E" : "#EF4444"} stopOpacity={0.8}/>
+      <stop offset="95%" stopColor={tendencia === "up" ? "#22C55E" : "#EF4444"} stopOpacity={0}/>
+    </linearGradient>
+  </defs>
+  <Area
+    type="monotone"
+    dataKey="valor"
+    stroke={tendencia === "up" ? "#22C55E" : "#EF4444"}
+    fill="url(#colorGrafico)"
+    strokeWidth={2}
+    dot={{ r: 4 }}
+  />
+</AreaChart>
+Requisitos visuais:
+A mudança de cor precisa ocorrer automaticamente e suavemente ao trocar de aba (semana/mês/trimestre).
+
+Não deve haver recarregamento ou piscar o gráfico.
+
+O restante do dashboard não pode sofrer regressão.
+
+A cor usada no gráfico precisa ser coerente com os ícones de variação percentual já presentes abaixo (verde/vermelho).
+
+Essa entrega representa um recurso visual inteligente e essencial para comunicar tendências de performance visualmente, e deve ser aplicada com foco em UX e clareza de interpretação dos dados.
+
+Se o gráfico estiver usando outra lib além do Recharts (ex: Chart.js, ApexCharts), adaptar o código da lógica condicional para o formato correspondente.
