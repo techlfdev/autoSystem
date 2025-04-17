@@ -3,29 +3,48 @@
 @tailwind utilities;
 
 /* Modern scrollbar styling */
-::-webkit-scrollbar {
+.custom-scroll,
+.scrollarea-content,
+.sidebar-content,
+.data-table-container,
+div[role="dialog"] {
+  scrollbar-width: thin;
+  scrollbar-color: #c2c2c2 transparent;
+}
+
+.custom-scroll::-webkit-scrollbar,
+.scrollarea-content::-webkit-scrollbar,
+.sidebar-content::-webkit-scrollbar,
+.data-table-container::-webkit-scrollbar,
+div[role="dialog"]::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
-::-webkit-scrollbar-track {
+.custom-scroll::-webkit-scrollbar-track,
+.scrollarea-content::-webkit-scrollbar-track,
+.sidebar-content::-webkit-scrollbar-track,
+.data-table-container::-webkit-scrollbar-track,
+div[role="dialog"]::-webkit-scrollbar-track {
   background: transparent;
 }
 
-::-webkit-scrollbar-thumb {
+.custom-scroll::-webkit-scrollbar-thumb,
+.scrollarea-content::-webkit-scrollbar-thumb,
+.sidebar-content::-webkit-scrollbar-thumb,
+.data-table-container::-webkit-scrollbar-thumb,
+div[role="dialog"]::-webkit-scrollbar-thumb {
   background-color: #c2c2c2;
   border-radius: 9999px;
   transition: background-color 0.2s ease-in-out;
 }
 
-::-webkit-scrollbar-thumb:hover {
+.custom-scroll::-webkit-scrollbar-thumb:hover,
+.scrollarea-content::-webkit-scrollbar-thumb:hover,
+.sidebar-content::-webkit-scrollbar-thumb:hover,
+.data-table-container::-webkit-scrollbar-thumb:hover,
+div[role="dialog"]::-webkit-scrollbar-thumb:hover {
   background-color: #999999;
-}
-
-/* Firefox scrollbar styling */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: #c2c2c2 transparent;
 }
 
 @layer base {
