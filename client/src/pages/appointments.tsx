@@ -41,7 +41,7 @@ export default function AppointmentsPage() {
           </TabsList>
 
           <TabsContent value="calendar" className="flex-1">
-            <FullScreenCalendar data={[]} onDateSelect={handleNewAppointment} />
+            <FullscreenCalendar data={[]} onDateSelect={handleNewAppointment} />
           </TabsContent>
 
           <TabsContent value="clients" className="flex-1">
