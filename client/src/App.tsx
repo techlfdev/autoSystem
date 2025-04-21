@@ -29,8 +29,6 @@ function Router() {
   );
 }
 
-import { Toaster } from "@/components/ui/toaster";
-
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
@@ -39,5 +37,3 @@ export default function App() {
     </QueryClientProvider>
   );
 }
-
-export default App;

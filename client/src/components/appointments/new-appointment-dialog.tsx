@@ -1,17 +1,11 @@
-
 import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useToast } from '@/hooks/use-toast';
 import { ClientAutocomplete } from '@/components/clients/client-autocomplete';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-
-interface NewAppointmentDialogProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-}
 
 interface NewAppointmentDialogProps {
   open: boolean;
@@ -94,7 +88,7 @@ export function NewAppointmentDialog({ open, onOpenChange, onSuccess }: NewAppoi
                   <Input type="email" />
                 </div>
               </div>
-              
+
               <div className="space-y-2">
                 <Label>Endereço</Label>
                 <Input placeholder="Rua, número" />
