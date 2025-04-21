@@ -7,7 +7,7 @@ import { DataTable } from '@/components/ui/data-table';
 import { Calendar, Users, Search, Filter } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { EnhancedDashboardLayout } from '@/components/layout/enhanced-dashboard-layout';
-import { FullscreenCalendar } from '@/components/ui/fullscreen-calendar';
+import { FullScreenCalendar } from '@/components/ui/calendar';
 import { ClientsTable } from '@/components/appointments/clients-table';
 import { NewAppointmentDialog } from '@/components/appointments/new-appointment-dialog';
 
@@ -16,7 +16,7 @@ export default function AppointmentsPage() {
   const [isNewAppointmentOpen, setIsNewAppointmentOpen] = useState(false);
   const { toast } = useToast();
 
-  const handleNewAppointment = () => {
+  const handleNewAppointment = (date?: Date) => {
     setIsNewAppointmentOpen(true);
   };
 
@@ -41,7 +41,7 @@ export default function AppointmentsPage() {
           </TabsList>
 
           <TabsContent value="calendar" className="flex-1">
-            <FullscreenCalendar />
+            <FullScreenCalendar data={[]} onDateSelect={handleNewAppointment} />
           </TabsContent>
 
           <TabsContent value="clients" className="flex-1">

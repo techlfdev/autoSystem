@@ -1,4 +1,3 @@
-
 "use client"
 
 import * as React from "react"
@@ -30,6 +29,7 @@ import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { useMediaQuery } from "@/hooks/use-media-query"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { FullScreenCalendar } from '@/components/ui/calendar'
 
 interface Event {
   id: number
@@ -58,7 +58,7 @@ const colStartClasses = [
   "col-start-7",
 ]
 
-export function FullScreenCalendar({ data, onDateSelect, onNewAppointment }: FullScreenCalendarProps) {
+export function FullScreenCalendar({ data, onDateSelect }: FullScreenCalendarProps) {
   const today = startOfToday()
   const [selectedDay, setSelectedDay] = React.useState(today)
   const [currentMonth, setCurrentMonth] = React.useState(
@@ -307,3 +307,5 @@ export function FullScreenCalendar({ data, onDateSelect, onNewAppointment }: Ful
     </div>
   )
 }
+
+export { FullScreenCalendar as FullscreenCalendar }
