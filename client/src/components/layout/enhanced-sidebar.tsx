@@ -97,7 +97,6 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
         { icon: <LayoutDashboard size={20} />, label: 'Dashboard', href: '/' },
         { icon: <Calendar size={20} />, label: 'Agendamentos', href: '/agendamentos' },
         { icon: <Wrench size={20} />, label: 'Ordens de Serviço', href: '/ordens' },
-        { icon: <UserRound size={20} />, label: 'Clientes', href: '/clientes' },
         { icon: <Box size={20} />, label: 'Estoque', href: '/estoque' },
       ]
     },
