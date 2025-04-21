@@ -7,7 +7,7 @@ import { DataTable } from '@/components/ui/data-table';
 import { Calendar, Users, Search, Filter } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { EnhancedDashboardLayout } from '@/components/layout/enhanced-dashboard-layout';
-import { FullScreenCalendar } from '@/components/ui/calendar';
+import { FullscreenCalendar } from '@/components/ui/fullscreen-calendar';
 import { ClientsTable } from '@/components/appointments/clients-table';
 import { NewAppointmentDialog } from '@/components/appointments/new-appointment-dialog';
 

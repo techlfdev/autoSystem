@@ -58,7 +58,7 @@ const colStartClasses = [
   "col-start-7",
 ]
 
-export function FullScreenCalendar({ data, onDateSelect }: FullScreenCalendarProps) {
+export function FullscreenCalendar({ data, onDateSelect }: FullScreenCalendarProps) {
   const today = startOfToday()
   const [selectedDay, setSelectedDay] = React.useState(today)
   const [currentMonth, setCurrentMonth] = React.useState(
@@ -308,4 +308,4 @@ export function FullScreenCalendar({ data, onDateSelect }: FullScreenCalendarPro
   )
 }
 
-export { FullScreenCalendar as FullscreenCalendar }
+export { FullscreenCalendar }
