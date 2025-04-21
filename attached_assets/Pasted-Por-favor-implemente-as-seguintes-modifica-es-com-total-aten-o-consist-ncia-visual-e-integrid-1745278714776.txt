@@ -1,0 +1,19 @@
+Por favor, implemente as seguintes modificações com total atenção à consistência visual e à integridade funcional da aplicação. Nenhuma das alterações deve gerar novos erros, conflitos ou comportamentos inesperados em outras páginas do sistema. É imprescindível que o resultado seja fluido, responsivo, moderno e mantenha a identidade visual minimalista já aplicada no projeto.
+
+Na visualização da aba de agendamentos, atualmente temos dois botões de "Novo Agendamento" exibidos ao mesmo tempo, o que causa redundância visual e confusão. O botão de "Novo Agendamento" que aparece no topo, ao lado da seleção entre "Calendário" e "Clientes Cadastrados", deve ser visível apenas quando a aba "Clientes Cadastrados" estiver selecionada. Ele deve ser ocultado automaticamente quando a visualização "Calendário" estiver ativa.
+
+Na visualização de "Clientes Cadastrados", adicione os ícones funcionais à direita de cada linha da tabela para permitir ações rápidas sobre o cliente:
+
+Ícone de olho (👁) para visualizar o histórico completo do cliente, incluindo serviços executados, datas, status e observações internas.
+
+Ícone de lápis (✏️) para editar os dados cadastrais e informações do cliente.
+
+Ícone de lixeira (🗑) para permitir a exclusão do cliente (com confirmação modal para evitar exclusões acidentais).
+
+Essas ações devem ser implementadas com animações suaves, responsividade total e coerência com o restante do layout do sistema. As ações não podem quebrar o layout ou gerar mensagens de erro em nenhuma circunstância.
+
+Todos os botões e ícones devem seguir o padrão visual da plataforma (font-family: Manrope, espaçamento e estilos consistentes). A tabela de "Clientes Cadastrados" deve manter o comportamento de responsividade e exibir corretamente os dados mesmo em resoluções menores.
+
+Reforce também a validação dos dados apresentados (ex: documentos e telefones formatados corretamente) e garanta que a experiência de navegação entre abas ("Calendário" ↔ "Clientes Cadastrados") seja fluida e sem recarregamento da página.
+
+Ao finalizar, revise minuciosamente todo o comportamento dessa área para garantir que nenhuma funcionalidade anterior tenha sido impactada negativamente e que tudo esteja funcionando como esperado — sem erros de compilação, sem erros em tempo de execução e com todas as funcionalidades ativas e bem integradas ao restante do sistema.
