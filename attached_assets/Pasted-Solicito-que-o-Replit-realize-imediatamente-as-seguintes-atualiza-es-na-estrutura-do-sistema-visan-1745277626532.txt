@@ -1,0 +1,102 @@
+Solicito que o Replit realize imediatamente as seguintes atualizações na estrutura do sistema, visando maior eficiência operacional e centralização da gestão de clientes na aba de agendamentos:
+
+Objetivo:
+Eliminar a aba separada de Clientes e integrar todas as funcionalidades relacionadas diretamente na aba de Agendamentos, com um novo painel completo e organizado para cadastro, histórico e seleção de clientes dentro do fluxo de agendamento de serviços.
+
+Alterações obrigatórias:
+Remover completamente a aba "Clientes" do menu lateral e do sistema de rotas. Nenhum vestígio deve permanecer da página ou rota /clientes.
+
+Incorporar o cadastro e visualização de clientes diretamente dentro da aba "Agendamentos", com as seguintes seções:
+
+A) Seção "Clientes Cadastrados"
+Inserida logo abaixo do calendário ou em um tab (ex: Calendário | Histórico de Clientes).
+
+Listar todos os clientes já registrados em uma tabela contendo:
+
+Nome
+
+Telefone
+
+Documento (CPF/CNPJ)
+
+Veículos associados
+
+Último serviço realizado
+
+Data de último agendamento
+
+Permitir busca por nome, telefone, placa ou documento.
+
+Permitir filtros por veículos, tags e frequência de agendamento.
+
+Permitir visualização detalhada com botão "Ver histórico".
+
+B) Popup de Novo Agendamento:
+Incluir um seletor suspenso para escolher cliente já cadastrado.
+
+Deve funcionar com busca (autocomplete) por nome, telefone, placa ou CPF.
+
+Se cliente ainda não estiver cadastrado, exibir opção “+ Novo Cliente”.
+
+Ao selecionar um cliente já existente, preencher automaticamente os dados no formulário.
+
+C) Formulário de Cadastro de Cliente (dentro do popup de agendamento):
+Expandir os campos para contemplar informações mais completas, incluindo:
+
+Nome completo
+
+Telefone
+
+CPF ou CNPJ (obrigatório)
+
+RG (opcional)
+
+Endereço completo (rua, número, bairro, cidade, estado, CEP)
+
+E-mail
+
+Data de nascimento
+
+CNH (opcional)
+
+Observações gerais
+
+Associar um ou mais veículos ao cliente diretamente neste cadastro.
+
+Cada veículo deve conter:
+
+Marca / Modelo
+
+Placa
+
+Ano de fabricação
+
+KM atual
+
+Tipo de combustível
+
+Número do chassi (opcional)
+
+D) Histórico do Cliente
+Ao clicar em "Ver Histórico" ou acessar um cliente pelo agendamento, exibir modal com:
+
+Lista de todos os serviços já realizados
+
+Datas, mecânicos responsáveis, valores
+
+Documentos e fotos anexadas nos agendamentos anteriores
+
+Sugestões automáticas de próximas manutenções (por tempo ou KM)
+
+Requisitos técnicos e visuais:
+Nenhum dado de cliente deve ser perdido com a remoção da aba antiga.
+
+O componente de agendamento deve continuar funcional e leve.
+
+A experiência do usuário deve ser fluida, com animações suaves e visual limpo.
+
+O novo painel de cliente dentro da aba de agendamentos deve respeitar o design já adotado pelo sistema: branco puro, tipografia Manrope, espaçamentos generosos, sombras leves e componentes animados.
+
+Essa entrega é estratégica e crítica para a organização de dados sensíveis dos clientes e para rastreabilidade jurídica, garantindo segurança e eficiência para oficinas mecânicas que utilizam o sistema. A centralização dentro da aba de agendamentos também tornará o fluxo mais direto e rápido, sem a necessidade de navegação entre páginas desconectadas.
+
+Garanta que não haja regressão no funcionamento atual do calendário ou do sistema de ordens de serviço, e que o novo painel de clientes esteja totalmente funcional no desktop e no mobile.
