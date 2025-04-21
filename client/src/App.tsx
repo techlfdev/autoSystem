@@ -1,4 +1,3 @@
-
 import { lazy, Suspense } from "react";
 import { ErrorBoundary } from "@/components/ui/error-boundary";
 import { Switch, Route } from "wouter";
@@ -19,18 +18,20 @@ function Router() {
     <Suspense fallback={<PageLoader />}>
       <ErrorBoundary>
         <Switch>
-        <Route path="/" component={Dashboard} />
-        <Route path="/clientes" component={Clients} />
-        <Route path="/agendamentos" component={Appointments} />
-        <Route path="/ordens" component={ServiceOrders} />
-        <Route component={NotFound} />
-      </Switch>
+          <Route path="/" component={Dashboard} />
+          <Route path="/clientes" component={Clients} />
+          <Route path="/agendamentos" component={Appointments} />
+          <Route path="/ordens" component={ServiceOrders} />
+          <Route component={NotFound} />
+        </Switch>
       </ErrorBoundary>
     </Suspense>
   );
 }
 
-function App() {
+import { Toaster } from "@/components/ui/toaster";
+
+export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Router />
