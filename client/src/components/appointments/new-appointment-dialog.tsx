@@ -12,8 +12,38 @@ interface NewAppointmentDialogProps {
   onOpenChange: (open: boolean) => void;
 }
 
-export function NewAppointmentDialog({ open, onOpenChange }: NewAppointmentDialogProps) {
+interface NewAppointmentDialogProps {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onSuccess?: () => void;
+}
+
+export function NewAppointmentDialog({ open, onOpenChange, onSuccess }: NewAppointmentDialogProps) {
   const [activeTab, setActiveTab] = useState('existing');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const { toast } = useToast();
+
+  const handleSubmit = async () => {
+    try {
+      setIsSubmitting(true);
+      // Implement API call here
+      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulated API call
+      toast({
+        title: "Sucesso",
+        description: "Agendamento criado com sucesso",
+      });
+      onSuccess?.();
+      onOpenChange(false);
+    } catch (error) {
+      toast({
+        title: "Erro",
+        description: "Não foi possível criar o agendamento",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -110,11 +140,18 @@ export function NewAppointmentDialog({ open, onOpenChange }: NewAppointmentDialo
         </Tabs>
 
         <div className="flex justify-end gap-2 mt-6">
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
+          <Button 
+            variant="outline" 
+            onClick={() => onOpenChange(false)}
+            disabled={isSubmitting}
+          >
             Cancelar
           </Button>
-          <Button>
-            Criar Agendamento
+          <Button
+            onClick={handleSubmit}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Criando..." : "Criar Agendamento"}
           </Button>
         </div>
       </DialogContent>

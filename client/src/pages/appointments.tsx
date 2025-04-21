@@ -14,10 +14,30 @@ import { NewAppointmentDialog } from '@/components/appointments/new-appointment-
 export default function AppointmentsPage() {
   const [activeTab, setActiveTab] = useState('calendar');
   const [isNewAppointmentOpen, setIsNewAppointmentOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const { toast } = useToast();
 
   const handleNewAppointment = (date?: Date) => {
     setIsNewAppointmentOpen(true);
+  };
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleFilterClick = () => {
+    toast({
+      title: "Filtros",
+      description: "Funcionalidade de filtros em desenvolvimento",
+    });
+  };
+
+  const handleAppointmentCreated = () => {
+    setIsNewAppointmentOpen(false);
+    toast({
+      title: "Sucesso",
+      description: "Agendamento criado com sucesso",
+    });
   };
 
   return (
