@@ -1,8 +1,9 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { DataTable } from '@/components/ui/data-table';
 import { Button } from '@/components/ui/button';
-import { Eye, Car } from 'lucide-react';
+import { Eye, Car, Edit, Trash2 } from 'lucide-react';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
+
 
 const columns = [
   {
@@ -41,12 +42,61 @@ const columns = [
   },
   {
     id: 'actions',
-    cell: ({ row }) => (
-      <Button variant="ghost" size="sm" onClick={() => console.log('Ver histórico', row.original)}>
-        <Eye className="h-4 w-4 mr-2" />
-        Ver Histórico
-      </Button>
-    ),
+    cell: ({ row }) => {
+        const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+
+        return (
+          <div className="flex items-center gap-2">
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="hover:bg-muted/50 transition-colors"
+              onClick={() => row.original.onViewHistory?.(row.original)}
+            >
+              <Eye className="h-4 w-4" />
+            </Button>
+            <Button 
+              variant="ghost" 
+              size="icon"
+              className="hover:bg-muted/50 transition-colors"
+              onClick={() => row.original.onEdit?.(row.original)}
+            >
+              <Edit className="h-4 w-4" />
+            </Button>
+            <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+              <AlertDialogTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="hover:bg-destructive/10 text-destructive transition-colors"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Confirmar Exclusão</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Tem certeza que deseja excluir este cliente? Esta ação não pode ser desfeita.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={() => {
+                      row.original.onDelete?.(row.original.id);
+                      setShowDeleteDialog(false);
+                    }}
+                    className="bg-destructive hover:bg-destructive/90"
+                  >
+                    Excluir
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </div>
+        );
+      },
   },
 ];
 
@@ -58,6 +108,10 @@ const data = [
     vehicles: ['Honda Civic 2020', 'Fiat Uno 2015'],
     lastService: 'Troca de Óleo',
     lastAppointment: '15/01/2024',
+    onViewHistory: (client) => console.log('Ver histórico', client),
+    onEdit: (client) => console.log('Editar', client),
+    onDelete: (id) => console.log('Deletar', id),
+    id: 1,
   },
   // Add more sample data as needed
 ];

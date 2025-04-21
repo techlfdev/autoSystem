@@ -25,7 +25,9 @@ export default function AppointmentsPage() {
       <div className="flex flex-col h-full gap-4">
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-bold">Agendamentos</h1>
-          <Button onClick={handleNewAppointment}>Novo Agendamento</Button>
+          {activeTab === 'clients' && (
+            <Button onClick={handleNewAppointment}>Novo Agendamento</Button>
+          )}
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1">
