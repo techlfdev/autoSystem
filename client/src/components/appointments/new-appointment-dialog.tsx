@@ -4,7 +4,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { ClientAutocomplete } from '@/components/clients/client-autocomplete';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 interface NewAppointmentDialogProps {
@@ -32,15 +32,12 @@ export function NewAppointmentDialog({ open, onOpenChange }: NewAppointmentDialo
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label>Selecionar Cliente</Label>
-                <Select>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Buscar cliente..." />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="1">João Silva</SelectItem>
-                    <SelectItem value="2">Maria Santos</SelectItem>
-                  </SelectContent>
-                </Select>
+                <ClientAutocomplete 
+                  onSelect={(client) => {
+                    // Handle selected client
+                    console.log('Selected client:', client);
+                  }} 
+                />
               </div>
               {/* Appointment details fields */}
             </div>
