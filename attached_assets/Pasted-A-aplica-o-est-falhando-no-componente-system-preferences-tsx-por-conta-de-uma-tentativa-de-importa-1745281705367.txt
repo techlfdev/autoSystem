@@ -1,0 +1,42 @@
+A aplicação está falhando no componente system-preferences.tsx por conta de uma tentativa de importação inválida: @/components/ui/use-toast. O erro é claro: Failed to resolve import "@/components/ui/use-toast". Isso significa que ou o arquivo não existe, ou o caminho de importação está incorreto.
+
+É fundamental que você corrija esse erro em todos os lugares da aplicação onde esse import é utilizado, garantindo que:
+
+O hook useToast seja definido corretamente.
+
+Se ainda não existe, crie o arquivo client/src/components/ui/use-toast.ts com o conteúdo básico compatível com o sistema de notificações usado (como o Toaster da biblioteca shadcn/ui, sonner, ou outro padrão que você esteja utilizando).
+
+Exemplo básico para compatibilidade com shadcn/ui:
+
+ts
+Copiar
+Editar
+// client/src/components/ui/use-toast.ts
+import { toast } from "sonner"; // ou outro provider que você estiver usando
+
+export function useToast() {
+  return {
+    toast: toast,
+  };
+}
+Revise todos os componentes dentro de settings/ (como system-preferences.tsx, integration-settings.tsx, user-permissions.tsx, entre outros) e corrija as importações que fazem referência a use-toast.
+
+Exemplo:
+
+tsx
+Copiar
+Editar
+import { useToast } from "@/components/ui/use-toast";
+Garanta que nenhum erro de importação persista, e que todos os botões e interações que deveriam disparar um toast estejam funcionando perfeitamente. É inaceitável que o sistema exiba erros em componentes críticos como Configurações.
+
+Após implementar o useToast, faça testes de comportamento:
+
+Clique em salvar, editar ou deletar configurações.
+
+Verifique se o toast aparece com mensagens de sucesso, erro ou feedback visual ao usuário.
+
+Assegure que nenhuma interação fique sem retorno.
+
+Por fim, não apenas corrija o erro de importação, mas aplique uma análise profunda em toda a base de código para garantir que não existam outras chamadas quebradas ao useToast, especialmente em componentes de UI interativa.
+
+Essa correção precisa ser feita com responsabilidade, sem atalhos, assegurando estabilidade total da aplicação e eliminando o risco de falhas silenciosas em feedback ao usuário.
