@@ -38,27 +38,35 @@ export default function SettingsPage() {
           <TabsContent value="company">
             <CompanySettings />
           </TabsContent>
+          
           <TabsContent value="users">
             <UserPermissions />
           </TabsContent>
+          
           <TabsContent value="preferences">
             <SystemPreferences />
           </TabsContent>
+          
           <TabsContent value="integrations">
             <IntegrationSettings />
           </TabsContent>
+          
           <TabsContent value="notifications">
             <NotificationTemplates />
           </TabsContent>
+          
           <TabsContent value="subscription">
             <SubscriptionSettings />
           </TabsContent>
+          
           <TabsContent value="security">
             <SecuritySettings />
           </TabsContent>
+          
           <TabsContent value="email">
             <EmailSmsSettings />
           </TabsContent>
+          
           <TabsContent value="history">
             <ConfigurationHistory />
           </TabsContent>
