@@ -12,6 +12,8 @@ const Clients = lazy(() => import("@/pages/clients"));
 const Appointments = lazy(() => import("@/pages/appointments"));
 const ServiceOrders = lazy(() => import("@/pages/service-orders"));
 const NotFound = lazy(() => import("@/pages/not-found"));
+const Inventory = lazy(() => import("@/pages/inventory")); // Added Inventory component import
+
 
 function Router() {
   return (
@@ -22,6 +24,7 @@ function Router() {
           <Route path="/clientes" component={Clients} />
           <Route path="/agendamentos" component={Appointments} />
           <Route path="/ordens" component={ServiceOrders} />
+          <Route path="/estoque" component={Inventory} /> {/* Added Inventory route */}
           <Route component={NotFound} />
         </Switch>
       </ErrorBoundary>
