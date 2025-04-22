@@ -21,6 +21,13 @@ import {
   Menu,
   User
 } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -291,77 +298,131 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
       {/* User Profile Footer */}
       <div className="border-t border-gray-200 p-3">
         {/* User Profile */}
-        <motion.div 
-          className={cn(
-            "flex items-center p-2 rounded-xl hover:bg-gray-100 transition-colors cursor-pointer",
-            !expanded && "justify-center"
-          )}
-          whileHover={{ scale: 1.02 }}
-        >
-          <Avatar className="h-9 w-9 border border-gray-200">
-            <AvatarImage 
-              src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" 
-              alt={user.name} 
-            />
-            <AvatarFallback>{user.name?.substring(0, 2).toUpperCase()}</AvatarFallback>
-          </Avatar>
-
-          {expanded && (
-            <motion.div
-              variants={contentVariants}
-              initial="collapsed"
-              animate="expanded"
-              className="ml-3 flex-1 min-w-0"
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <motion.div 
+              className={cn(
+                "flex items-center p-2 rounded-xl hover:bg-gray-100 transition-colors cursor-pointer",
+                !expanded && "justify-center"
+              )}
+              whileHover={{ scale: 1.02 }}
             >
-              <p className="text-sm font-medium truncate">{user.name}</p>
-              {user.email && (
-                <p className="text-xs text-gray-500 truncate">{user.email}</p>
+              <Avatar className="h-9 w-9 border border-gray-200">
+                <AvatarImage 
+                  src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" 
+                  alt={user.name} 
+                />
+                <AvatarFallback>{user.name?.substring(0, 2).toUpperCase()}</AvatarFallback>
+              </Avatar>
+
+              {expanded && (
+                <motion.div
+                  variants={contentVariants}
+                  initial="collapsed"
+                  animate="expanded"
+                  className="ml-3 flex-1 min-w-0"
+                >
+                  <p className="text-sm font-medium truncate">{user.name}</p>
+                  {user.email && (
+                    <p className="text-xs text-gray-500 truncate">{user.email}</p>
+                  )}
+                </motion.div>
+              )}
+
+              {expanded && (
+                <motion.div
+                  variants={contentVariants}
+                  initial="collapsed"
+                  animate="expanded"
+                >
+                  <ChevronRight size={18} className="text-gray-400" />
+                </motion.div>
               )}
             </motion.div>
-          )}
-
-          {expanded && (
-            <motion.div
-              variants={contentVariants}
-              initial="collapsed"
-              animate="expanded"
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-56">
+            <DropdownMenuItem onClick={() => {
+              navigate('/configuracoes');
+              // Add small delay to ensure navigation completes
+              setTimeout(() => {
+                const profileSection = document.getElementById('profile-section');
+                if (profileSection) {
+                  profileSection.scrollIntoView({ behavior: 'smooth' });
+                  profileSection.focus();
+                }
+              }, 100);
+            }}>
+              <User className="mr-2 h-4 w-4" />
+              <span>Editar Perfil</span>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem 
+              onClick={() => {
+                // Clear all session data
+                localStorage.clear();
+                sessionStorage.clear();
+                // Clear cookies
+                document.cookie.split(";").forEach((c) => {
+                  document.cookie = c
+                    .replace(/^ +/, "")
+                    .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+                });
+                // Redirect to login
+                window.location.href = '/login';
+              }}
+              className="text-red-600 focus:text-red-600"
             >
-              <LogOut size={18} className="text-gray-400 hover:text-gray-700 transition-colors" />
-            </motion.div>
-          )}
-        </motion.div>
+              <LogOut className="mr-2 h-4 w-4" />
+              <span>Sair</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
 
-        {/* Subscription Plan Card */}
-        {expanded ? (
-          <PlanCard 
-            plan={subscriptionPlan} 
-            registrationDate={registrationDate} 
-            className="mx-1 mt-3"
-          />
-        ) : (
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <div className="flex justify-center mt-3 cursor-help">
+        {/* Subscription Plan Card - Clickable */}
+        <div 
+          onClick={() => {
+            navigate('/configuracoes');
+            setTimeout(() => {
+              const subscriptionSection = document.getElementById('subscription-section');
+              if (subscriptionSection) {
+                subscriptionSection.scrollIntoView({ behavior: 'smooth' });
+                subscriptionSection.focus();
+              }
+            }, 100);
+          }}
+          className="cursor-pointer transition-all hover:opacity-80"
+        >
+          {expanded ? (
+            <PlanCard 
+              plan={subscriptionPlan} 
+              registrationDate={registrationDate} 
+              className="mx-1 mt-3"
+            />
+          ) : (
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <div className="flex justify-center mt-3">
+                    {renderForPlan(
+                      subscriptionPlan,
+                      <Timer className="h-5 w-5 text-gray-400" />,
+                      <ShieldCheck className="h-5 w-5 text-blue-500" />,
+                      <Crown className="h-5 w-5 text-amber-500" />
+                    )}
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent side="right">
                   {renderForPlan(
                     subscriptionPlan,
-                    <Timer className="h-5 w-5 text-gray-400" />,
-                    <ShieldCheck className="h-5 w-5 text-blue-500" />,
-                    <Crown className="h-5 w-5 text-amber-500" />
+                    'Plano Gratuito',
+                    'Plano Intermediário',
+                    'Plano Avançado'
                   )}
-                </div>
-              </TooltipTrigger>
-              <TooltipContent side="right">
-                {renderForPlan(
-                  subscriptionPlan,
-                  'Plano Gratuito',
-                  'Plano Intermediário',
-                  'Plano Avançado'
-                )}
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        )}
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          )}
+        </div>
       </div>
     </div>
   );
