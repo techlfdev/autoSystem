@@ -302,7 +302,7 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
             <DropdownMenuTrigger asChild>
               <motion.div 
                 className={cn(
-                  "flex items-center p-2 rounded-xl hover:bg-gray-100 transition-colors cursor-pointer",
+                  "flex items-center p-2 rounded-xl hover:bg-gray-100/80 transition-colors cursor-pointer",
                   !expanded && "justify-center"
                 )}
                 whileHover={{ scale: 1.02 }}
@@ -345,6 +345,7 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
               align="end" 
               className="w-56 animate-in fade-in-0 zoom-in-95"
               style={{ zIndex: 50 }}
+              sideOffset={5}
             >
               <DropdownMenuItem 
                 onClick={() => {
@@ -354,8 +355,6 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
                     if (profileSection) {
                       profileSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                       profileSection.focus();
-                    } else {
-                      console.warn('Profile section not found');
                     }
                   }, 100);
                 }}
@@ -379,7 +378,6 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
                         .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
                     });
 
-                    // Optional: Call logout endpoint if exists
                     try {
                       await fetch('/api/auth/logout', { 
                         method: 'POST',
@@ -389,7 +387,6 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
                       console.warn('Logout endpoint not available:', e);
                     }
 
-                    // Redirect to login
                     window.location.href = '/login';
                   } catch (error) {
                     toast({
@@ -407,33 +404,19 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
             </DropdownMenuContent>
           </DropdownMenu>
 
-        {/* Subscription Plan Card - Clickable */}
-        <div 
-          onClick={() => {
-            navigate('/configuracoes');
-            setTimeout(() => {
-              const subscriptionSection = document.getElementById('subscription-plans-section');
-              if (subscriptionSection) {
-                subscriptionSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                subscriptionSection.focus();
-              } else {
-                console.warn('Subscription section not found');
-              }
-            }, 100);
-          }}
-          className="cursor-pointer transition-all hover:opacity-80"
-        >
+        {/* Subscription Plan Card - Static Display */}
+        <div className="mt-3">
           {expanded ? (
             <PlanCard 
               plan={subscriptionPlan} 
               registrationDate={registrationDate} 
-              className="mx-1 mt-3"
+              className="mx-1"
             />
           ) : (
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <div className="flex justify-center mt-3">
+                  <div className="flex justify-center">
                     {renderForPlan(
                       subscriptionPlan,
                       <Timer className="h-5 w-5 text-gray-400" />,
