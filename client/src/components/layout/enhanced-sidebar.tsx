@@ -300,9 +300,10 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
         {/* User Profile */}
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <motion.div 
+              <motion.button
+                type="button" 
                 className={cn(
-                  "flex items-center p-2 rounded-xl hover:bg-gray-100/80 transition-colors cursor-pointer",
+                  "w-full flex items-center p-2 rounded-xl hover:bg-gray-100/80 transition-colors cursor-pointer border-none bg-transparent",
                   !expanded && "justify-center"
                 )}
                 whileHover={{ scale: 1.02 }}
@@ -317,57 +318,48 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
                 </Avatar>
 
                 {expanded && (
-                  <motion.div
-                    variants={contentVariants}
-                    initial="collapsed"
-                    animate="expanded"
-                    className="ml-3 flex-1 min-w-0"
-                  >
-                    <p className="text-sm font-medium truncate">{user.name}</p>
-                    {user.email && (
-                      <p className="text-xs text-gray-500 truncate">{user.email}</p>
-                    )}
-                  </motion.div>
+                  <>
+                    <div className="ml-3 flex-1 min-w-0 text-left">
+                      <p className="text-sm font-medium truncate">{user.name}</p>
+                      {user.email && (
+                        <p className="text-xs text-gray-500 truncate">{user.email}</p>
+                      )}
+                    </div>
+                    <ChevronRight size={18} className="text-gray-400 flex-shrink-0" />
+                  </>
                 )}
-
-                {expanded && (
-                  <motion.div
-                    variants={contentVariants}
-                    initial="collapsed"
-                    animate="expanded"
-                  >
-                    <ChevronRight size={18} className="text-gray-400" />
-                  </motion.div>
-                )}
-              </motion.div>
+              </motion.button>
             </DropdownMenuTrigger>
             <DropdownMenuContent 
               align="end" 
               className="w-56 animate-in fade-in-0 zoom-in-95"
-              style={{ zIndex: 50 }}
-              sideOffset={5}
+              style={{ zIndex: 999 }}
+              sideOffset={8}
             >
               <DropdownMenuItem 
                 onClick={() => {
                   navigate('/configuracoes');
-                  setTimeout(() => {
+                  requestAnimationFrame(() => {
                     const profileSection = document.getElementById('user-profile-section');
                     if (profileSection) {
-                      profileSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                      profileSection.focus();
+                      profileSection.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                      });
+                      profileSection.focus({ preventScroll: true });
                     }
-                  }, 100);
+                  });
                 }}
-                className="cursor-pointer hover:bg-gray-100 focus:bg-gray-100"
+                className="flex items-center gap-2 cursor-pointer hover:bg-gray-100 focus:bg-gray-100 transition-colors"
               >
-                <User className="mr-2 h-4 w-4" />
+                <User className="h-4 w-4" />
                 <span>Editar Perfil</span>
               </DropdownMenuItem>
-              <DropdownMenuSeparator />
+              <DropdownMenuSeparator className="my-1" />
               <DropdownMenuItem 
                 onClick={async () => {
                   try {
-                    // Clear all session data
+                    // Cleanup local storage
                     localStorage.clear();
                     sessionStorage.clear();
                     
@@ -378,6 +370,7 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
                         .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
                     });
 
+                    // Attempt server logout
                     try {
                       await fetch('/api/auth/logout', { 
                         method: 'POST',
@@ -387,7 +380,17 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
                       console.warn('Logout endpoint not available:', e);
                     }
 
-                    window.location.href = '/login';
+                    // Show success message and redirect
+                    toast({
+                      title: "Sessão encerrada",
+                      description: "Você será redirecionado em instantes...",
+                      duration: 2000,
+                    });
+
+                    setTimeout(() => {
+                      window.location.href = '/login';
+                    }, 1000);
+
                   } catch (error) {
                     toast({
                       title: "Erro ao sair",
@@ -396,9 +399,9 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
                     });
                   }
                 }}
-                className="text-red-600 hover:bg-red-50 focus:bg-red-50 cursor-pointer"
+                className="flex items-center gap-2 text-red-600 hover:bg-red-50 focus:bg-red-50 cursor-pointer transition-colors"
               >
-                <LogOut className="mr-2 h-4 w-4" />
+                <LogOut className="h-4 w-4" />
                 <span>Sair</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
