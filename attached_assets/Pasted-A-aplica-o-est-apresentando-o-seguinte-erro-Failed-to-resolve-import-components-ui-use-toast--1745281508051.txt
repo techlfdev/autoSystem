@@ -1,0 +1,28 @@
+A aplicação está apresentando o seguinte erro: Failed to resolve import "@/components/ui/use-toast" from "client/src/components/settings/user-permissions.tsx". Esse erro indica que o módulo use-toast não existe ou não está corretamente exportado no caminho informado.
+
+Para resolver isso definitivamente, corrija imediatamente a referência ao use-toast dentro do arquivo user-permissions.tsx. Siga estes passos com máxima atenção:
+
+Verifique se o hook useToast realmente existe e está definido corretamente em @/components/ui/use-toast.ts ou similar. Se esse hook foi movido, renomeado ou deletado, ajuste o import de acordo.
+
+Caso esse hook não exista, crie um hook funcional useToast ou substitua por uma implementação já disponível de sistema de notificações. O projeto está utilizando Toaster? Então deve haver um hook correspondente.
+
+Se estiver usando o shadcn/ui, a importação correta do useToast é:
+
+tsx
+Copiar
+Editar
+import { useToast } from "@/components/ui/use-toast";
+Verifique se o caminho e o nome do arquivo estão exatamente como esperado e que o export esteja assim no arquivo use-toast.ts:
+
+tsx
+Copiar
+Editar
+export function useToast() {
+  const { toast } = useToastContext(); // exemplo de implementação
+  return { toast };
+}
+Após resolver o import, execute um rebuild completo da aplicação e verifique se o componente UserPermissions está utilizando corretamente o hook toast() para notificar ações como criar, editar ou excluir permissões.
+
+Além disso, verifique todas as outras importações em settings.tsx e seus subcomponentes como SystemPreferences, IntegrationSettings, SecuritySettings, SubscriptionSettings e NotificationTemplates, certificando-se de que todos os arquivos existem, estão corretamente exportados e acessíveis via alias (@/components/...).
+
+Finalize com uma análise profunda para garantir que todos os botões estejam funcionando, todas as notificações estejam operando com toast, e não haja mais nenhum erro ou aviso na build. O objetivo é garantir 100% de funcionalidade, integridade e responsividade dentro da aba de Configurações. Nenhum botão pode estar quebrado, nenhuma interação pode falhar.
