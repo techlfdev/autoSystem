@@ -1,5 +1,4 @@
 
-import { useQuery } from '@tanstack/react-query';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card } from '@/components/ui/card';
 import { EnhancedDashboardLayout } from '@/components/layout/enhanced-dashboard-layout';
@@ -11,8 +10,7 @@ import { IntegrationSettings } from '@/components/settings/integration-settings'
 import { NotificationTemplates } from '@/components/settings/notification-templates';
 import { SubscriptionSettings } from '@/components/settings/subscription-settings';
 import { SecuritySettings } from '@/components/settings/security-settings';
-import { EmailSmsSettings } from '@/components/settings/email-sms-settings';
-import { ConfigurationHistory } from '@/components/settings/configuration-history';
+import { Badge } from '@/components/ui/badge';
 
 export default function SettingsPage() {
   return (
@@ -31,9 +29,7 @@ export default function SettingsPage() {
             <TabsTrigger value="notifications">Notificações</TabsTrigger>
             <TabsTrigger value="subscription">Assinatura</TabsTrigger>
             <TabsTrigger value="security">Segurança</TabsTrigger>
-            <TabsTrigger value="email">E-mail e SMS</TabsTrigger>
-            <TabsTrigger value="history">Histórico</TabsTrigger>
-          </TabsList>
+            </TabsList>
 
           <TabsContent value="company">
             <CompanySettings />
@@ -63,13 +59,7 @@ export default function SettingsPage() {
             <SecuritySettings />
           </TabsContent>
           
-          <TabsContent value="email">
-            <EmailSmsSettings />
-          </TabsContent>
           
-          <TabsContent value="history">
-            <ConfigurationHistory />
-          </TabsContent>
         </Tabs>
       </div>
     </EnhancedDashboardLayout>
