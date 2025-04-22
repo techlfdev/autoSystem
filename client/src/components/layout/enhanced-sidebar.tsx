@@ -104,7 +104,6 @@ export function EnhancedSidebar({ className, user = { name: 'Carlos Silva', role
       title: 'Financeiro',
       items: [
         { icon: <DollarSign size={20} />, label: 'Faturamento', href: '/faturamento' },
-        { icon: <BarChart3 size={20} />, label: 'Relatórios', href: '/relatorios' },
       ]
     },
     {

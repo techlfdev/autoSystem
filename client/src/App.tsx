@@ -13,7 +13,7 @@ const Appointments = lazy(() => import("@/pages/appointments"));
 const ServiceOrders = lazy(() => import("@/pages/service-orders"));
 const NotFound = lazy(() => import("@/pages/not-found"));
 const Inventory = lazy(() => import("@/pages/inventory"));
-const Billing = lazy(() => import("@/pages/billing")); // Added Billing component import
+const Billing = lazy(() => import("@/pages/billing"));
 
 
 function Router() {
@@ -26,7 +26,7 @@ function Router() {
           <Route path="/agendamentos" component={Appointments} />
           <Route path="/ordens" component={ServiceOrders} />
           <Route path="/estoque" component={Inventory} />
-          <Route path="/faturamento" component={Billing} /> {/* Added Billing route */}
+          <Route path="/faturamento" component={Billing} />
           <Route component={NotFound} />
         </Switch>
       </ErrorBoundary>
