@@ -1,0 +1,22 @@
+A funcionalidade da aba Configurações finalmente foi carregada, mas ao clicar em “Subscription Settings” ou equivalente, o sistema imediatamente apresenta o seguinte erro crítico de execução:
+
+[plugin:runtime-error-plugin] Badge is not defined
+/client/src/components/settings/subscription-settings.tsx:29:14
+
+Esse erro compromete a usabilidade e prejudica completamente a experiência do usuário, pois impede o acesso à visualização de status de assinatura, que é uma informação central em qualquer sistema de gestão. O erro decorre do uso do componente <Badge> sem a devida importação explícita no topo do arquivo.
+
+Solicito que isso seja resolvido com urgência e de forma definitiva, realizando as seguintes ações:
+
+Implemente imediatamente a importação do componente Badge proveniente da biblioteca utilizada pelo projeto. Se estiver utilizando os componentes da UI do shadcn, a importação correta geralmente é:
+
+tsx
+Copiar
+Editar
+import { Badge } from "@/components/ui/badge";
+Caso o projeto esteja usando uma estrutura diferente, revise os paths e arquivos disponíveis no projeto e atualize o caminho conforme necessário para garantir que o componente seja corretamente reconhecido e renderizado.
+
+Além disso, revise todos os demais componentes dentro da aplicação que usam Badge, pois a ausência dessa importação pode estar presente em outras telas, o que geraria falhas silenciosas ou futuras.
+
+Esse tipo de erro é facilmente evitável com uma análise estática de imports e tipagem, então também exijo que seja incorporada uma validação automatizada de todos os componentes que utilizam elementos externos como Badge, Toaster, Toast, Button, entre outros. Isso evita que erros triviais como “componente não definido” continuem quebrando partes críticas do sistema.
+
+O projeto precisa urgentemente de estabilidade e consistência na UI. Resolva essa questão agora, de forma poderosa, limpa, e permanente, garantindo que todos os botões, status, e elementos visuais das Configurações estejam funcionando com confiabilidade total.
