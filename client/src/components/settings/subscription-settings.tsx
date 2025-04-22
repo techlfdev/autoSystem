@@ -68,7 +68,7 @@ export function SubscriptionSettings() {
 
   return (
     <>
-      <Card className="p-6">
+      <Card id="subscription-plans-section" className="p-6" tabIndex={-1}>
         <div className="space-y-6">
           <div className="flex justify-between items-center">
             <h2 className="text-xl font-semibold">Assinatura e Plano</h2>
