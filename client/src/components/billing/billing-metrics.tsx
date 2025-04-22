@@ -4,8 +4,21 @@ import { TrendingUp, TrendingDown, Receipt, AlertCircle, DollarSign, Calculator,
 import { formatCurrency } from '@/lib/utils/date-utils';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
+interface MetricsData {
+  currentMonthRevenue: number;
+  previousMonthRevenue: number;
+  averageTicket: number;
+  completedOrders: number;
+  pendingOrders: number;
+  totalReceived: number;
+  totalPending: number;
+  projectedRevenue: number;
+  paymentMethods: Array<{ method: string; value: number }>;
+  serviceRevenue: Array<{ service: string; value: number }>;
+}
+
 interface BillingMetricsProps {
-  data?: any;
+  data?: MetricsData;
   isLoading?: boolean;
 }
 
